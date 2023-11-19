@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "software_timer.h": "c",
+        "fsm_traffic_system.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

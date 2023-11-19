@@ -1,0 +1,705 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"button.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/button.c"
+  18              		.section	.text.initButton,"ax",%progbits
+  19              		.align	1
+  20              		.global	initButton
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	initButton:
+  26              	.LFB65:
+   1:Core/Src/button.c **** /*
+   2:Core/Src/button.c ****  * input.c
+   3:Core/Src/button.c ****  *
+   4:Core/Src/button.c ****  *  Created on: Oct 24, 2023
+   5:Core/Src/button.c ****  *      Author: ADMIN
+   6:Core/Src/button.c ****  */
+   7:Core/Src/button.c **** 
+   8:Core/Src/button.c **** #include "main.h"
+   9:Core/Src/button.c **** #include "button.h"
+  10:Core/Src/button.c **** enum buttonState{
+  11:Core/Src/button.c **** 	BUTTON_RELEASE,
+  12:Core/Src/button.c **** 	BUTTON_PRESS,
+  13:Core/Src/button.c **** 	BUTTON_LONG_PRESS,
+  14:Core/Src/button.c **** };
+  15:Core/Src/button.c **** static int keyread0[NUM_BUTTON];
+  16:Core/Src/button.c **** static int keyread1[NUM_BUTTON];
+  17:Core/Src/button.c **** static int keyread2[NUM_BUTTON];
+  18:Core/Src/button.c **** static int saveStateButton[NUM_BUTTON];
+  19:Core/Src/button.c **** static int currentStateButton[NUM_BUTTON];
+  20:Core/Src/button.c **** int countLongPress[NUM_BUTTON];
+  21:Core/Src/button.c **** static int shortPressFlag[NUM_BUTTON];
+  22:Core/Src/button.c **** static int longPressFlag[NUM_BUTTON];
+  23:Core/Src/button.c **** 
+  24:Core/Src/button.c **** void initButton(){
+  27              		.loc 1 24 18 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  25:Core/Src/button.c **** 	for (int i = 0; i < NUM_BUTTON;i++) {
+  32              		.loc 1 25 2 view .LVU1
+  33              	.LBB2:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 2
+
+
+  34              		.loc 1 25 7 view .LVU2
+  35              	.LVL0:
+  36              		.loc 1 25 11 is_stmt 0 view .LVU3
+  37 0000 0023     		movs	r3, #0
+  38              		.loc 1 25 2 view .LVU4
+  39 0002 1AE0     		b	.L2
+  40              	.LVL1:
+  41              	.L3:
+  26:Core/Src/button.c **** 		keyread0[i] = BUTTON_IS_RELEASED;
+  42              		.loc 1 26 3 is_stmt 1 discriminator 3 view .LVU5
+  43              		.loc 1 26 15 is_stmt 0 discriminator 3 view .LVU6
+  44 0004 0122     		movs	r2, #1
+  45 0006 0E49     		ldr	r1, .L4
+  46 0008 41F82320 		str	r2, [r1, r3, lsl #2]
+  27:Core/Src/button.c **** 		keyread1[i] = BUTTON_IS_RELEASED;
+  47              		.loc 1 27 3 is_stmt 1 discriminator 3 view .LVU7
+  48              		.loc 1 27 15 is_stmt 0 discriminator 3 view .LVU8
+  49 000c 0D49     		ldr	r1, .L4+4
+  50 000e 41F82320 		str	r2, [r1, r3, lsl #2]
+  28:Core/Src/button.c **** 		keyread2[i] = BUTTON_IS_RELEASED;
+  51              		.loc 1 28 3 is_stmt 1 discriminator 3 view .LVU9
+  52              		.loc 1 28 15 is_stmt 0 discriminator 3 view .LVU10
+  53 0012 0D49     		ldr	r1, .L4+8
+  54 0014 41F82320 		str	r2, [r1, r3, lsl #2]
+  29:Core/Src/button.c **** 		saveStateButton[i] = BUTTON_IS_RELEASED;
+  55              		.loc 1 29 3 is_stmt 1 discriminator 3 view .LVU11
+  56              		.loc 1 29 22 is_stmt 0 discriminator 3 view .LVU12
+  57 0018 0C49     		ldr	r1, .L4+12
+  58 001a 41F82320 		str	r2, [r1, r3, lsl #2]
+  30:Core/Src/button.c **** 		currentStateButton[i] = BUTTON_IS_RELEASED;
+  59              		.loc 1 30 3 is_stmt 1 discriminator 3 view .LVU13
+  60              		.loc 1 30 25 is_stmt 0 discriminator 3 view .LVU14
+  61 001e 0C49     		ldr	r1, .L4+16
+  62 0020 41F82320 		str	r2, [r1, r3, lsl #2]
+  31:Core/Src/button.c **** 		countLongPress[i] = 0;
+  63              		.loc 1 31 3 is_stmt 1 discriminator 3 view .LVU15
+  64              		.loc 1 31 21 is_stmt 0 discriminator 3 view .LVU16
+  65 0024 0022     		movs	r2, #0
+  66 0026 0B49     		ldr	r1, .L4+20
+  67 0028 41F82320 		str	r2, [r1, r3, lsl #2]
+  32:Core/Src/button.c **** 		shortPressFlag[i] = 0;
+  68              		.loc 1 32 3 is_stmt 1 discriminator 3 view .LVU17
+  69              		.loc 1 32 21 is_stmt 0 discriminator 3 view .LVU18
+  70 002c 0A49     		ldr	r1, .L4+24
+  71 002e 41F82320 		str	r2, [r1, r3, lsl #2]
+  33:Core/Src/button.c **** 		longPressFlag[i] = 0;
+  72              		.loc 1 33 3 is_stmt 1 discriminator 3 view .LVU19
+  73              		.loc 1 33 20 is_stmt 0 discriminator 3 view .LVU20
+  74 0032 0A49     		ldr	r1, .L4+28
+  75 0034 41F82320 		str	r2, [r1, r3, lsl #2]
+  25:Core/Src/button.c **** 		keyread0[i] = BUTTON_IS_RELEASED;
+  76              		.loc 1 25 34 is_stmt 1 discriminator 3 view .LVU21
+  77 0038 0133     		adds	r3, r3, #1
+  78              	.LVL2:
+  79              	.L2:
+  25:Core/Src/button.c **** 		keyread0[i] = BUTTON_IS_RELEASED;
+  80              		.loc 1 25 20 discriminator 1 view .LVU22
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 3
+
+
+  81 003a 022B     		cmp	r3, #2
+  82 003c E2DD     		ble	.L3
+  83              	.LBE2:
+  34:Core/Src/button.c **** 	}
+  35:Core/Src/button.c **** }
+  84              		.loc 1 35 1 is_stmt 0 view .LVU23
+  85 003e 7047     		bx	lr
+  86              	.L5:
+  87              		.align	2
+  88              	.L4:
+  89 0040 00000000 		.word	keyread0
+  90 0044 00000000 		.word	keyread1
+  91 0048 00000000 		.word	keyread2
+  92 004c 00000000 		.word	saveStateButton
+  93 0050 00000000 		.word	currentStateButton
+  94 0054 00000000 		.word	countLongPress
+  95 0058 00000000 		.word	shortPressFlag
+  96 005c 00000000 		.word	longPressFlag
+  97              		.cfi_endproc
+  98              	.LFE65:
+ 100              		.section	.text.isButtonPress,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	isButtonPress
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 107              	isButtonPress:
+ 108              	.LVL3:
+ 109              	.LFB66:
+  36:Core/Src/button.c **** int isButtonPress(int i){
+ 110              		.loc 1 36 25 is_stmt 1 view -0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ 115              		.loc 1 36 25 is_stmt 0 view .LVU25
+ 116 0000 0346     		mov	r3, r0
+  37:Core/Src/button.c **** 	if (shortPressFlag[i] == 1){
+ 117              		.loc 1 37 2 is_stmt 1 view .LVU26
+ 118              		.loc 1 37 20 is_stmt 0 view .LVU27
+ 119 0002 054A     		ldr	r2, .L10
+ 120 0004 52F82000 		ldr	r0, [r2, r0, lsl #2]
+ 121              	.LVL4:
+ 122              		.loc 1 37 5 view .LVU28
+ 123 0008 0128     		cmp	r0, #1
+ 124 000a 01D0     		beq	.L9
+  38:Core/Src/button.c **** 		shortPressFlag[i] = 0;
+  39:Core/Src/button.c **** 		return 1;
+  40:Core/Src/button.c **** 	}
+  41:Core/Src/button.c **** 	return 0;
+ 125              		.loc 1 41 9 view .LVU29
+ 126 000c 0020     		movs	r0, #0
+  42:Core/Src/button.c **** }
+ 127              		.loc 1 42 1 view .LVU30
+ 128 000e 7047     		bx	lr
+ 129              	.L9:
+  38:Core/Src/button.c **** 		shortPressFlag[i] = 0;
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 4
+
+
+ 130              		.loc 1 38 3 is_stmt 1 view .LVU31
+  38:Core/Src/button.c **** 		shortPressFlag[i] = 0;
+ 131              		.loc 1 38 21 is_stmt 0 view .LVU32
+ 132 0010 0021     		movs	r1, #0
+ 133 0012 42F82310 		str	r1, [r2, r3, lsl #2]
+  39:Core/Src/button.c **** 	}
+ 134              		.loc 1 39 3 is_stmt 1 view .LVU33
+  39:Core/Src/button.c **** 	}
+ 135              		.loc 1 39 10 is_stmt 0 view .LVU34
+ 136 0016 7047     		bx	lr
+ 137              	.L11:
+ 138              		.align	2
+ 139              	.L10:
+ 140 0018 00000000 		.word	shortPressFlag
+ 141              		.cfi_endproc
+ 142              	.LFE66:
+ 144              		.section	.text.isButtonPressLong,"ax",%progbits
+ 145              		.align	1
+ 146              		.global	isButtonPressLong
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 151              	isButtonPressLong:
+ 152              	.LVL5:
+ 153              	.LFB67:
+  43:Core/Src/button.c **** int isButtonPressLong(int i){
+ 154              		.loc 1 43 29 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		@ link register save eliminated.
+ 159              		.loc 1 43 29 is_stmt 0 view .LVU36
+ 160 0000 0346     		mov	r3, r0
+  44:Core/Src/button.c **** 	if (longPressFlag[i] == 1){
+ 161              		.loc 1 44 2 is_stmt 1 view .LVU37
+ 162              		.loc 1 44 19 is_stmt 0 view .LVU38
+ 163 0002 054A     		ldr	r2, .L16
+ 164 0004 52F82000 		ldr	r0, [r2, r0, lsl #2]
+ 165              	.LVL6:
+ 166              		.loc 1 44 5 view .LVU39
+ 167 0008 0128     		cmp	r0, #1
+ 168 000a 01D0     		beq	.L15
+  45:Core/Src/button.c **** 		longPressFlag[i] = 0;
+  46:Core/Src/button.c **** 		return 1;
+  47:Core/Src/button.c **** 	}
+  48:Core/Src/button.c ****     return 0;
+ 169              		.loc 1 48 12 view .LVU40
+ 170 000c 0020     		movs	r0, #0
+  49:Core/Src/button.c **** }
+ 171              		.loc 1 49 1 view .LVU41
+ 172 000e 7047     		bx	lr
+ 173              	.L15:
+  45:Core/Src/button.c **** 		longPressFlag[i] = 0;
+ 174              		.loc 1 45 3 is_stmt 1 view .LVU42
+  45:Core/Src/button.c **** 		longPressFlag[i] = 0;
+ 175              		.loc 1 45 20 is_stmt 0 view .LVU43
+ 176 0010 0021     		movs	r1, #0
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 5
+
+
+ 177 0012 42F82310 		str	r1, [r2, r3, lsl #2]
+  46:Core/Src/button.c **** 	}
+ 178              		.loc 1 46 3 is_stmt 1 view .LVU44
+  46:Core/Src/button.c **** 	}
+ 179              		.loc 1 46 10 is_stmt 0 view .LVU45
+ 180 0016 7047     		bx	lr
+ 181              	.L17:
+ 182              		.align	2
+ 183              	.L16:
+ 184 0018 00000000 		.word	longPressFlag
+ 185              		.cfi_endproc
+ 186              	.LFE67:
+ 188              		.section	.text.readPin,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	readPin
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 195              	readPin:
+ 196              	.LFB68:
+  50:Core/Src/button.c **** void readPin(){
+ 197              		.loc 1 50 15 is_stmt 1 view -0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 201 0000 10B5     		push	{r4, lr}
+ 202              	.LCFI0:
+ 203              		.cfi_def_cfa_offset 8
+ 204              		.cfi_offset 4, -8
+ 205              		.cfi_offset 14, -4
+  51:Core/Src/button.c **** 	for (int i = 0;i < NUM_BUTTON ;i++){
+ 206              		.loc 1 51 2 view .LVU47
+ 207              	.LBB3:
+ 208              		.loc 1 51 7 view .LVU48
+ 209              	.LVL7:
+ 210              		.loc 1 51 11 is_stmt 0 view .LVU49
+ 211 0002 0024     		movs	r4, #0
+ 212              		.loc 1 51 2 view .LVU50
+ 213 0004 3AE0     		b	.L19
+ 214              	.LVL8:
+ 215              	.L33:
+  52:Core/Src/button.c **** 		keyread0[i] = keyread1[i];
+  53:Core/Src/button.c **** 		keyread1[i] = keyread2[i];
+  54:Core/Src/button.c **** 
+  55:Core/Src/button.c **** 		switch (i)
+  56:Core/Src/button.c **** 		{
+  57:Core/Src/button.c **** 		case 0:
+  58:Core/Src/button.c **** 			keyread2[i] = HAL_GPIO_ReadPin(BUTTON1_GPIO_Port,BUTTON1_Pin);
+ 216              		.loc 1 58 4 is_stmt 1 view .LVU51
+ 217              		.loc 1 58 18 is_stmt 0 view .LVU52
+ 218 0006 0421     		movs	r1, #4
+ 219 0008 4448     		ldr	r0, .L35
+ 220 000a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 221              	.LVL9:
+ 222              		.loc 1 58 16 view .LVU53
+ 223 000e 444B     		ldr	r3, .L35+4
+ 224 0010 43F82400 		str	r0, [r3, r4, lsl #2]
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 6
+
+
+  59:Core/Src/button.c **** 			break;
+ 225              		.loc 1 59 4 is_stmt 1 view .LVU54
+ 226 0014 45E0     		b	.L22
+ 227              	.L20:
+  60:Core/Src/button.c **** 		case 1:
+  61:Core/Src/button.c **** 			keyread2[i] = HAL_GPIO_ReadPin(BUTTON2_GPIO_Port,BUTTON2_Pin);
+ 228              		.loc 1 61 4 view .LVU55
+ 229              		.loc 1 61 18 is_stmt 0 view .LVU56
+ 230 0016 0821     		movs	r1, #8
+ 231 0018 4048     		ldr	r0, .L35
+ 232 001a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 233              	.LVL10:
+ 234              		.loc 1 61 16 view .LVU57
+ 235 001e 404B     		ldr	r3, .L35+4
+ 236 0020 43F82400 		str	r0, [r3, r4, lsl #2]
+  62:Core/Src/button.c **** 			break;
+ 237              		.loc 1 62 4 is_stmt 1 view .LVU58
+ 238 0024 3DE0     		b	.L22
+ 239              	.L21:
+  63:Core/Src/button.c **** 		case 2:
+  64:Core/Src/button.c **** 			keyread2[i] = HAL_GPIO_ReadPin(BUTTON3_GPIO_Port,BUTTON3_Pin);
+ 240              		.loc 1 64 4 view .LVU59
+ 241              		.loc 1 64 18 is_stmt 0 view .LVU60
+ 242 0026 1021     		movs	r1, #16
+ 243 0028 3C48     		ldr	r0, .L35
+ 244 002a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 245              	.LVL11:
+ 246              		.loc 1 64 16 view .LVU61
+ 247 002e 3C4B     		ldr	r3, .L35+4
+ 248 0030 43F82400 		str	r0, [r3, r4, lsl #2]
+  65:Core/Src/button.c **** 			break;
+ 249              		.loc 1 65 4 is_stmt 1 view .LVU62
+ 250 0034 35E0     		b	.L22
+ 251              	.L24:
+  66:Core/Src/button.c **** 		default:
+  67:Core/Src/button.c **** 			break;
+  68:Core/Src/button.c **** 		}
+  69:Core/Src/button.c **** 		if ((keyread1[i] == keyread0[i]) && (keyread1[i] == keyread2[i])){
+  70:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+  71:Core/Src/button.c **** 			switch (saveStateButton[i])
+  72:Core/Src/button.c **** 			{
+  73:Core/Src/button.c **** 			case BUTTON_IS_RELEASED:
+  74:Core/Src/button.c **** 				if (currentStateButton[i] == BUTTON_IS_PRESSED ){
+ 252              		.loc 1 74 5 view .LVU63
+ 253              		.loc 1 74 8 is_stmt 0 view .LVU64
+ 254 0036 02BB     		cbnz	r2, .L23
+  75:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_PRESSED;
+ 255              		.loc 1 75 6 is_stmt 1 view .LVU65
+ 256              		.loc 1 75 25 is_stmt 0 view .LVU66
+ 257 0038 3A4B     		ldr	r3, .L35+8
+ 258 003a 43F82420 		str	r2, [r3, r4, lsl #2]
+ 259 003e 1CE0     		b	.L23
+ 260              	.L34:
+  76:Core/Src/button.c **** 				}
+  77:Core/Src/button.c **** 				break;
+  78:Core/Src/button.c **** 
+  79:Core/Src/button.c **** 			case BUTTON_IS_PRESSED:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 7
+
+
+  80:Core/Src/button.c **** 				countLongPress[i] ++;
+  81:Core/Src/button.c **** 				if (currentStateButton[i] == BUTTON_IS_RELEASED ){
+  82:Core/Src/button.c **** 					shortPressFlag[i] = 1;
+ 261              		.loc 1 82 6 is_stmt 1 view .LVU67
+ 262              		.loc 1 82 24 is_stmt 0 view .LVU68
+ 263 0040 0123     		movs	r3, #1
+ 264 0042 394A     		ldr	r2, .L35+12
+ 265 0044 42F82430 		str	r3, [r2, r4, lsl #2]
+  83:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_RELEASED;
+ 266              		.loc 1 83 6 is_stmt 1 view .LVU69
+ 267              		.loc 1 83 25 is_stmt 0 view .LVU70
+ 268 0048 364A     		ldr	r2, .L35+8
+ 269 004a 42F82430 		str	r3, [r2, r4, lsl #2]
+  84:Core/Src/button.c **** 					countLongPress[i] = 0;
+ 270              		.loc 1 84 6 is_stmt 1 view .LVU71
+ 271              		.loc 1 84 24 is_stmt 0 view .LVU72
+ 272 004e 0022     		movs	r2, #0
+ 273 0050 41F82420 		str	r2, [r1, r4, lsl #2]
+ 274 0054 46E0     		b	.L27
+ 275              	.L25:
+  85:Core/Src/button.c **** 				}
+  86:Core/Src/button.c **** 
+  87:Core/Src/button.c **** 				if (countLongPress[i] >= 200){
+  88:Core/Src/button.c **** 					// todo
+  89:Core/Src/button.c **** 					longPressFlag[i] = 1;
+  90:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_LONG_PRESSED;
+  91:Core/Src/button.c **** 					countLongPress[i] = 0;
+  92:Core/Src/button.c **** 				}
+  93:Core/Src/button.c **** 				break;
+  94:Core/Src/button.c **** 
+  95:Core/Src/button.c **** 			case BUTTON_LONG_PRESS:
+  96:Core/Src/button.c **** 				countLongPress[i]++;
+ 276              		.loc 1 96 5 is_stmt 1 view .LVU73
+ 277              		.loc 1 96 19 is_stmt 0 view .LVU74
+ 278 0056 3549     		ldr	r1, .L35+16
+ 279 0058 51F82430 		ldr	r3, [r1, r4, lsl #2]
+ 280              		.loc 1 96 22 view .LVU75
+ 281 005c 0133     		adds	r3, r3, #1
+ 282 005e 41F82430 		str	r3, [r1, r4, lsl #2]
+  97:Core/Src/button.c **** 				if (countLongPress[i] >= 200 ){
+ 283              		.loc 1 97 5 is_stmt 1 view .LVU76
+ 284              		.loc 1 97 8 is_stmt 0 view .LVU77
+ 285 0062 C72B     		cmp	r3, #199
+ 286 0064 07DD     		ble	.L28
+  98:Core/Src/button.c **** 					longPressFlag[i] = 1;
+ 287              		.loc 1 98 6 is_stmt 1 view .LVU78
+ 288              		.loc 1 98 23 is_stmt 0 view .LVU79
+ 289 0066 324B     		ldr	r3, .L35+20
+ 290 0068 0121     		movs	r1, #1
+ 291 006a 43F82410 		str	r1, [r3, r4, lsl #2]
+  99:Core/Src/button.c **** 					countLongPress[i] = 0;
+ 292              		.loc 1 99 6 is_stmt 1 view .LVU80
+ 293              		.loc 1 99 24 is_stmt 0 view .LVU81
+ 294 006e 2F4B     		ldr	r3, .L35+16
+ 295 0070 0021     		movs	r1, #0
+ 296 0072 43F82410 		str	r1, [r3, r4, lsl #2]
+ 297              	.L28:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 8
+
+
+ 100:Core/Src/button.c **** 				}
+ 101:Core/Src/button.c **** 				if( currentStateButton[i] == BUTTON_IS_RELEASED){
+ 298              		.loc 1 101 5 is_stmt 1 view .LVU82
+ 299              		.loc 1 101 7 is_stmt 0 view .LVU83
+ 300 0076 012A     		cmp	r2, #1
+ 301 0078 46D0     		beq	.L31
+ 302              	.L23:
+  51:Core/Src/button.c **** 		keyread0[i] = keyread1[i];
+ 303              		.loc 1 51 34 is_stmt 1 discriminator 2 view .LVU84
+ 304 007a 0134     		adds	r4, r4, #1
+ 305              	.LVL12:
+ 306              	.L19:
+  51:Core/Src/button.c **** 		keyread0[i] = keyread1[i];
+ 307              		.loc 1 51 19 discriminator 1 view .LVU85
+ 308 007c 022C     		cmp	r4, #2
+ 309 007e 4CDC     		bgt	.L32
+  52:Core/Src/button.c **** 		keyread1[i] = keyread2[i];
+ 310              		.loc 1 52 3 view .LVU86
+  52:Core/Src/button.c **** 		keyread1[i] = keyread2[i];
+ 311              		.loc 1 52 25 is_stmt 0 view .LVU87
+ 312 0080 2C4B     		ldr	r3, .L35+24
+ 313 0082 53F82410 		ldr	r1, [r3, r4, lsl #2]
+  52:Core/Src/button.c **** 		keyread1[i] = keyread2[i];
+ 314              		.loc 1 52 15 view .LVU88
+ 315 0086 2C4A     		ldr	r2, .L35+28
+ 316 0088 42F82410 		str	r1, [r2, r4, lsl #2]
+  53:Core/Src/button.c **** 
+ 317              		.loc 1 53 3 is_stmt 1 view .LVU89
+  53:Core/Src/button.c **** 
+ 318              		.loc 1 53 25 is_stmt 0 view .LVU90
+ 319 008c 244A     		ldr	r2, .L35+4
+ 320 008e 52F82420 		ldr	r2, [r2, r4, lsl #2]
+  53:Core/Src/button.c **** 
+ 321              		.loc 1 53 15 view .LVU91
+ 322 0092 43F82420 		str	r2, [r3, r4, lsl #2]
+  55:Core/Src/button.c **** 		{
+ 323              		.loc 1 55 3 is_stmt 1 view .LVU92
+ 324 0096 012C     		cmp	r4, #1
+ 325 0098 BDD0     		beq	.L20
+ 326 009a 022C     		cmp	r4, #2
+ 327 009c C3D0     		beq	.L21
+ 328 009e 002C     		cmp	r4, #0
+ 329 00a0 B1D0     		beq	.L33
+ 330              	.L22:
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 331              		.loc 1 69 3 view .LVU93
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 332              		.loc 1 69 16 is_stmt 0 view .LVU94
+ 333 00a2 244B     		ldr	r3, .L35+24
+ 334 00a4 53F82430 		ldr	r3, [r3, r4, lsl #2]
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 335              		.loc 1 69 31 view .LVU95
+ 336 00a8 234A     		ldr	r2, .L35+28
+ 337 00aa 52F82420 		ldr	r2, [r2, r4, lsl #2]
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 338              		.loc 1 69 6 view .LVU96
+ 339 00ae 9342     		cmp	r3, r2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 9
+
+
+ 340 00b0 E3D1     		bne	.L23
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 341              		.loc 1 69 63 discriminator 1 view .LVU97
+ 342 00b2 1B4A     		ldr	r2, .L35+4
+ 343 00b4 52F82420 		ldr	r2, [r2, r4, lsl #2]
+  69:Core/Src/button.c **** 			currentStateButton[i] = keyread2[i];
+ 344              		.loc 1 69 36 discriminator 1 view .LVU98
+ 345 00b8 9342     		cmp	r3, r2
+ 346 00ba DED1     		bne	.L23
+  70:Core/Src/button.c **** 			switch (saveStateButton[i])
+ 347              		.loc 1 70 4 is_stmt 1 view .LVU99
+  70:Core/Src/button.c **** 			switch (saveStateButton[i])
+ 348              		.loc 1 70 26 is_stmt 0 view .LVU100
+ 349 00bc 1F4B     		ldr	r3, .L35+32
+ 350 00be 43F82420 		str	r2, [r3, r4, lsl #2]
+  71:Core/Src/button.c **** 			{
+ 351              		.loc 1 71 4 is_stmt 1 view .LVU101
+  71:Core/Src/button.c **** 			{
+ 352              		.loc 1 71 27 is_stmt 0 view .LVU102
+ 353 00c2 184B     		ldr	r3, .L35+8
+ 354 00c4 53F82430 		ldr	r3, [r3, r4, lsl #2]
+  71:Core/Src/button.c **** 			{
+ 355              		.loc 1 71 4 view .LVU103
+ 356 00c8 012B     		cmp	r3, #1
+ 357 00ca B4D0     		beq	.L24
+ 358 00cc 022B     		cmp	r3, #2
+ 359 00ce C2D0     		beq	.L25
+ 360 00d0 002B     		cmp	r3, #0
+ 361 00d2 D2D1     		bne	.L23
+  80:Core/Src/button.c **** 				if (currentStateButton[i] == BUTTON_IS_RELEASED ){
+ 362              		.loc 1 80 5 is_stmt 1 view .LVU104
+  80:Core/Src/button.c **** 				if (currentStateButton[i] == BUTTON_IS_RELEASED ){
+ 363              		.loc 1 80 19 is_stmt 0 view .LVU105
+ 364 00d4 1549     		ldr	r1, .L35+16
+ 365 00d6 51F82430 		ldr	r3, [r1, r4, lsl #2]
+  80:Core/Src/button.c **** 				if (currentStateButton[i] == BUTTON_IS_RELEASED ){
+ 366              		.loc 1 80 23 view .LVU106
+ 367 00da 0133     		adds	r3, r3, #1
+ 368 00dc 41F82430 		str	r3, [r1, r4, lsl #2]
+  81:Core/Src/button.c **** 					shortPressFlag[i] = 1;
+ 369              		.loc 1 81 5 is_stmt 1 view .LVU107
+  81:Core/Src/button.c **** 					shortPressFlag[i] = 1;
+ 370              		.loc 1 81 8 is_stmt 0 view .LVU108
+ 371 00e0 012A     		cmp	r2, #1
+ 372 00e2 ADD0     		beq	.L34
+ 373              	.L27:
+  87:Core/Src/button.c **** 					// todo
+ 374              		.loc 1 87 5 is_stmt 1 view .LVU109
+  87:Core/Src/button.c **** 					// todo
+ 375              		.loc 1 87 23 is_stmt 0 view .LVU110
+ 376 00e4 114B     		ldr	r3, .L35+16
+ 377 00e6 53F82430 		ldr	r3, [r3, r4, lsl #2]
+  87:Core/Src/button.c **** 					// todo
+ 378              		.loc 1 87 8 view .LVU111
+ 379 00ea C72B     		cmp	r3, #199
+ 380 00ec C5DD     		ble	.L23
+  89:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_LONG_PRESSED;
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 10
+
+
+ 381              		.loc 1 89 6 is_stmt 1 view .LVU112
+  89:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_LONG_PRESSED;
+ 382              		.loc 1 89 23 is_stmt 0 view .LVU113
+ 383 00ee 104B     		ldr	r3, .L35+20
+ 384 00f0 0122     		movs	r2, #1
+ 385 00f2 43F82420 		str	r2, [r3, r4, lsl #2]
+  90:Core/Src/button.c **** 					countLongPress[i] = 0;
+ 386              		.loc 1 90 6 is_stmt 1 view .LVU114
+  90:Core/Src/button.c **** 					countLongPress[i] = 0;
+ 387              		.loc 1 90 25 is_stmt 0 view .LVU115
+ 388 00f6 0B4B     		ldr	r3, .L35+8
+ 389 00f8 0222     		movs	r2, #2
+ 390 00fa 43F82420 		str	r2, [r3, r4, lsl #2]
+  91:Core/Src/button.c **** 				}
+ 391              		.loc 1 91 6 is_stmt 1 view .LVU116
+  91:Core/Src/button.c **** 				}
+ 392              		.loc 1 91 24 is_stmt 0 view .LVU117
+ 393 00fe 0B4B     		ldr	r3, .L35+16
+ 394 0100 0022     		movs	r2, #0
+ 395 0102 43F82420 		str	r2, [r3, r4, lsl #2]
+ 396 0106 B8E7     		b	.L23
+ 397              	.L31:
+ 102:Core/Src/button.c **** 					countLongPress[i] = 0;
+ 398              		.loc 1 102 6 is_stmt 1 view .LVU118
+ 399              		.loc 1 102 24 is_stmt 0 view .LVU119
+ 400 0108 084B     		ldr	r3, .L35+16
+ 401 010a 0022     		movs	r2, #0
+ 402 010c 43F82420 		str	r2, [r3, r4, lsl #2]
+ 103:Core/Src/button.c **** 					saveStateButton[i] = BUTTON_IS_RELEASED;
+ 403              		.loc 1 103 6 is_stmt 1 view .LVU120
+ 404              		.loc 1 103 25 is_stmt 0 view .LVU121
+ 405 0110 044B     		ldr	r3, .L35+8
+ 406 0112 0122     		movs	r2, #1
+ 407 0114 43F82420 		str	r2, [r3, r4, lsl #2]
+ 408 0118 AFE7     		b	.L23
+ 409              	.L32:
+ 410              		.loc 1 103 25 view .LVU122
+ 411              	.LBE3:
+ 104:Core/Src/button.c **** 				}
+ 105:Core/Src/button.c **** 				break;
+ 106:Core/Src/button.c **** 
+ 107:Core/Src/button.c **** 			default:
+ 108:Core/Src/button.c **** 				break;
+ 109:Core/Src/button.c **** 			}
+ 110:Core/Src/button.c **** 		}
+ 111:Core/Src/button.c **** 	}
+ 112:Core/Src/button.c **** }
+ 412              		.loc 1 112 1 view .LVU123
+ 413 011a 10BD     		pop	{r4, pc}
+ 414              	.LVL13:
+ 415              	.L36:
+ 416              		.loc 1 112 1 view .LVU124
+ 417              		.align	2
+ 418              	.L35:
+ 419 011c 00080140 		.word	1073809408
+ 420 0120 00000000 		.word	keyread2
+ 421 0124 00000000 		.word	saveStateButton
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 11
+
+
+ 422 0128 00000000 		.word	shortPressFlag
+ 423 012c 00000000 		.word	countLongPress
+ 424 0130 00000000 		.word	longPressFlag
+ 425 0134 00000000 		.word	keyread1
+ 426 0138 00000000 		.word	keyread0
+ 427 013c 00000000 		.word	currentStateButton
+ 428              		.cfi_endproc
+ 429              	.LFE68:
+ 431              		.section	.bss.longPressFlag,"aw",%nobits
+ 432              		.align	2
+ 435              	longPressFlag:
+ 436 0000 00000000 		.space	12
+ 436      00000000 
+ 436      00000000 
+ 437              		.section	.bss.shortPressFlag,"aw",%nobits
+ 438              		.align	2
+ 441              	shortPressFlag:
+ 442 0000 00000000 		.space	12
+ 442      00000000 
+ 442      00000000 
+ 443              		.global	countLongPress
+ 444              		.section	.bss.countLongPress,"aw",%nobits
+ 445              		.align	2
+ 448              	countLongPress:
+ 449 0000 00000000 		.space	12
+ 449      00000000 
+ 449      00000000 
+ 450              		.section	.bss.currentStateButton,"aw",%nobits
+ 451              		.align	2
+ 454              	currentStateButton:
+ 455 0000 00000000 		.space	12
+ 455      00000000 
+ 455      00000000 
+ 456              		.section	.bss.saveStateButton,"aw",%nobits
+ 457              		.align	2
+ 460              	saveStateButton:
+ 461 0000 00000000 		.space	12
+ 461      00000000 
+ 461      00000000 
+ 462              		.section	.bss.keyread2,"aw",%nobits
+ 463              		.align	2
+ 466              	keyread2:
+ 467 0000 00000000 		.space	12
+ 467      00000000 
+ 467      00000000 
+ 468              		.section	.bss.keyread1,"aw",%nobits
+ 469              		.align	2
+ 472              	keyread1:
+ 473 0000 00000000 		.space	12
+ 473      00000000 
+ 473      00000000 
+ 474              		.section	.bss.keyread0,"aw",%nobits
+ 475              		.align	2
+ 478              	keyread0:
+ 479 0000 00000000 		.space	12
+ 479      00000000 
+ 479      00000000 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 12
+
+
+ 480              		.text
+ 481              	.Letext0:
+ 482              		.file 2 "c:\\program files (x86)\\arm gnu toolchain arm-none-eabi\\12.3 rel1\\arm-none-eabi\\inclu
+ 483              		.file 3 "c:\\program files (x86)\\arm gnu toolchain arm-none-eabi\\12.3 rel1\\arm-none-eabi\\inclu
+ 484              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 485              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 button.c
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:19     .text.initButton:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:25     .text.initButton:00000000 initButton
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:89     .text.initButton:00000040 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:478    .bss.keyread0:00000000 keyread0
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:472    .bss.keyread1:00000000 keyread1
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:466    .bss.keyread2:00000000 keyread2
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:460    .bss.saveStateButton:00000000 saveStateButton
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:454    .bss.currentStateButton:00000000 currentStateButton
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:448    .bss.countLongPress:00000000 countLongPress
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:441    .bss.shortPressFlag:00000000 shortPressFlag
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:435    .bss.longPressFlag:00000000 longPressFlag
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:101    .text.isButtonPress:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:107    .text.isButtonPress:00000000 isButtonPress
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:140    .text.isButtonPress:00000018 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:145    .text.isButtonPressLong:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:151    .text.isButtonPressLong:00000000 isButtonPressLong
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:184    .text.isButtonPressLong:00000018 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:189    .text.readPin:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:195    .text.readPin:00000000 readPin
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:419    .text.readPin:0000011c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:432    .bss.longPressFlag:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:438    .bss.shortPressFlag:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:445    .bss.countLongPress:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:451    .bss.currentStateButton:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:457    .bss.saveStateButton:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:463    .bss.keyread2:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:469    .bss.keyread1:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccUtPMxm.s:475    .bss.keyread0:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_ReadPin

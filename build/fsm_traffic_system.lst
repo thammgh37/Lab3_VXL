@@ -1,0 +1,2376 @@
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"fsm_traffic_system.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/fsm_traffic_system.c"
+  18              		.section	.text.plusLed7SEG,"ax",%progbits
+  19              		.align	1
+  20              		.global	plusLed7SEG
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	plusLed7SEG:
+  26              	.LFB65:
+   1:Core/Src/fsm_traffic_system.c **** #include "main.h"
+   2:Core/Src/fsm_traffic_system.c **** #include "fsm_traffic_system.h"
+   3:Core/Src/fsm_traffic_system.c **** int led7SEGbuffer[4];
+   4:Core/Src/fsm_traffic_system.c **** int timeRoad[3] = {5,3,2};
+   5:Core/Src/fsm_traffic_system.c **** int setTimeRoad[3];
+   6:Core/Src/fsm_traffic_system.c **** int state = INIT;
+   7:Core/Src/fsm_traffic_system.c **** 
+   8:Core/Src/fsm_traffic_system.c **** void plusLed7SEG(){
+  27              		.loc 1 8 19 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+   9:Core/Src/fsm_traffic_system.c ****     int time = led7SEGbuffer[0] * 10 + led7SEGbuffer[1];
+  32              		.loc 1 9 5 view .LVU1
+  33              		.loc 1 9 29 is_stmt 0 view .LVU2
+  34 0000 0C49     		ldr	r1, .L4
+  35 0002 0A68     		ldr	r2, [r1]
+  36              		.loc 1 9 33 view .LVU3
+  37 0004 02EB8202 		add	r2, r2, r2, lsl #2
+  38 0008 5300     		lsls	r3, r2, #1
+  39              		.loc 1 9 53 view .LVU4
+  40 000a 4A68     		ldr	r2, [r1, #4]
+  41              		.loc 1 9 9 view .LVU5
+  42 000c 1344     		add	r3, r3, r2
+  43              	.LVL0:
+  10:Core/Src/fsm_traffic_system.c ****     time ++;
+  44              		.loc 1 10 5 is_stmt 1 view .LVU6
+  45              		.loc 1 10 10 is_stmt 0 view .LVU7
+  46 000e 0133     		adds	r3, r3, #1
+  47              	.LVL1:
+  11:Core/Src/fsm_traffic_system.c ****     if (time > 99){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 2
+
+
+  48              		.loc 1 11 5 is_stmt 1 view .LVU8
+  49              		.loc 1 11 8 is_stmt 0 view .LVU9
+  50 0010 632B     		cmp	r3, #99
+  51 0012 00DD     		ble	.L2
+  12:Core/Src/fsm_traffic_system.c ****         time = 1;
+  52              		.loc 1 12 14 view .LVU10
+  53 0014 0123     		movs	r3, #1
+  54              	.LVL2:
+  55              	.L2:
+  13:Core/Src/fsm_traffic_system.c ****     }
+  14:Core/Src/fsm_traffic_system.c ****     led7SEGbuffer[0] = time/10;
+  56              		.loc 1 14 5 is_stmt 1 view .LVU11
+  57              		.loc 1 14 28 is_stmt 0 view .LVU12
+  58 0016 0849     		ldr	r1, .L4+4
+  59 0018 81FB0321 		smull	r2, r1, r1, r3
+  60 001c DA17     		asrs	r2, r3, #31
+  61 001e C2EBA102 		rsb	r2, r2, r1, asr #2
+  62              		.loc 1 14 22 view .LVU13
+  63 0022 0448     		ldr	r0, .L4
+  64 0024 0260     		str	r2, [r0]
+  15:Core/Src/fsm_traffic_system.c ****     led7SEGbuffer[1] = time%10;
+  65              		.loc 1 15 5 is_stmt 1 view .LVU14
+  66              		.loc 1 15 28 is_stmt 0 view .LVU15
+  67 0026 02EB8202 		add	r2, r2, r2, lsl #2
+  68 002a 5100     		lsls	r1, r2, #1
+  69 002c 591A     		subs	r1, r3, r1
+  70              		.loc 1 15 22 view .LVU16
+  71 002e 4160     		str	r1, [r0, #4]
+  16:Core/Src/fsm_traffic_system.c **** }
+  72              		.loc 1 16 1 view .LVU17
+  73 0030 7047     		bx	lr
+  74              	.L5:
+  75 0032 00BF     		.align	2
+  76              	.L4:
+  77 0034 00000000 		.word	led7SEGbuffer
+  78 0038 67666666 		.word	1717986919
+  79              		.cfi_endproc
+  80              	.LFE65:
+  82              		.section	.text.checkSetTimeValid,"ax",%progbits
+  83              		.align	1
+  84              		.global	checkSetTimeValid
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  89              	checkSetTimeValid:
+  90              	.LFB66:
+  17:Core/Src/fsm_traffic_system.c **** void checkSetTimeValid(){
+  91              		.loc 1 17 25 is_stmt 1 view -0
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  18:Core/Src/fsm_traffic_system.c ****     if (setTimeRoad[1] + setTimeRoad[2] == setTimeRoad[0]){
+  96              		.loc 1 18 5 view .LVU19
+  97              		.loc 1 18 20 is_stmt 0 view .LVU20
+  98 0000 094A     		ldr	r2, .L12
+  99 0002 5368     		ldr	r3, [r2, #4]
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 3
+
+
+ 100              		.loc 1 18 37 view .LVU21
+ 101 0004 9168     		ldr	r1, [r2, #8]
+ 102              		.loc 1 18 24 view .LVU22
+ 103 0006 0B44     		add	r3, r3, r1
+ 104              		.loc 1 18 55 view .LVU23
+ 105 0008 1268     		ldr	r2, [r2]
+ 106              		.loc 1 18 8 view .LVU24
+ 107 000a 9342     		cmp	r3, r2
+ 108 000c 0AD0     		beq	.L11
+ 109              	.L6:
+  19:Core/Src/fsm_traffic_system.c ****         for (int i = 0; i < 3 ; i++){
+  20:Core/Src/fsm_traffic_system.c ****             timeRoad[i] = setTimeRoad[i];
+  21:Core/Src/fsm_traffic_system.c ****         }
+  22:Core/Src/fsm_traffic_system.c ****     }
+  23:Core/Src/fsm_traffic_system.c **** }
+ 110              		.loc 1 23 1 view .LVU25
+ 111 000e 7047     		bx	lr
+ 112              	.LVL3:
+ 113              	.L9:
+ 114              	.LBB2:
+  20:Core/Src/fsm_traffic_system.c ****         }
+ 115              		.loc 1 20 13 is_stmt 1 discriminator 3 view .LVU26
+  20:Core/Src/fsm_traffic_system.c ****         }
+ 116              		.loc 1 20 38 is_stmt 0 discriminator 3 view .LVU27
+ 117 0010 054A     		ldr	r2, .L12
+ 118 0012 52F82310 		ldr	r1, [r2, r3, lsl #2]
+  20:Core/Src/fsm_traffic_system.c ****         }
+ 119              		.loc 1 20 25 discriminator 3 view .LVU28
+ 120 0016 054A     		ldr	r2, .L12+4
+ 121 0018 42F82310 		str	r1, [r2, r3, lsl #2]
+  19:Core/Src/fsm_traffic_system.c ****         for (int i = 0; i < 3 ; i++){
+ 122              		.loc 1 19 34 is_stmt 1 discriminator 3 view .LVU29
+ 123 001c 0133     		adds	r3, r3, #1
+ 124              	.LVL4:
+ 125              	.L7:
+  19:Core/Src/fsm_traffic_system.c ****         for (int i = 0; i < 3 ; i++){
+ 126              		.loc 1 19 27 discriminator 1 view .LVU30
+ 127 001e 022B     		cmp	r3, #2
+ 128 0020 F6DD     		ble	.L9
+ 129 0022 F4E7     		b	.L6
+ 130              	.LVL5:
+ 131              	.L11:
+  19:Core/Src/fsm_traffic_system.c ****         for (int i = 0; i < 3 ; i++){
+ 132              		.loc 1 19 18 is_stmt 0 view .LVU31
+ 133 0024 0023     		movs	r3, #0
+ 134 0026 FAE7     		b	.L7
+ 135              	.L13:
+ 136              		.align	2
+ 137              	.L12:
+ 138 0028 00000000 		.word	setTimeRoad
+ 139 002c 00000000 		.word	timeRoad
+ 140              	.LBE2:
+ 141              		.cfi_endproc
+ 142              	.LFE66:
+ 144              		.section	.text.updateTimeRoad,"ax",%progbits
+ 145              		.align	1
+ 146              		.global	updateTimeRoad
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 4
+
+
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 151              	updateTimeRoad:
+ 152              	.LVL6:
+ 153              	.LFB67:
+  24:Core/Src/fsm_traffic_system.c **** void updateTimeRoad(int state){
+ 154              		.loc 1 24 31 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		@ link register save eliminated.
+  25:Core/Src/fsm_traffic_system.c ****     int time = led7SEGbuffer[0]*10 + led7SEGbuffer[1];
+ 159              		.loc 1 25 5 view .LVU33
+ 160              		.loc 1 25 29 is_stmt 0 view .LVU34
+ 161 0000 0B4A     		ldr	r2, .L19
+ 162 0002 1368     		ldr	r3, [r2]
+ 163              		.loc 1 25 32 view .LVU35
+ 164 0004 03EB8303 		add	r3, r3, r3, lsl #2
+ 165              		.loc 1 25 51 view .LVU36
+ 166 0008 5268     		ldr	r2, [r2, #4]
+ 167              		.loc 1 25 9 view .LVU37
+ 168 000a 02EB4302 		add	r2, r2, r3, lsl #1
+ 169              	.LVL7:
+  26:Core/Src/fsm_traffic_system.c ****     switch (state)
+ 170              		.loc 1 26 5 is_stmt 1 view .LVU38
+ 171 000e 0728     		cmp	r0, #7
+ 172 0010 07D0     		beq	.L15
+ 173 0012 0828     		cmp	r0, #8
+ 174 0014 08D0     		beq	.L16
+ 175 0016 0628     		cmp	r0, #6
+ 176 0018 00D0     		beq	.L18
+ 177              	.L14:
+  27:Core/Src/fsm_traffic_system.c ****     {
+  28:Core/Src/fsm_traffic_system.c ****     case MODE2:
+  29:Core/Src/fsm_traffic_system.c ****         setTimeRoad[0] = time;
+  30:Core/Src/fsm_traffic_system.c ****         break;
+  31:Core/Src/fsm_traffic_system.c ****     case MODE3:
+  32:Core/Src/fsm_traffic_system.c ****         setTimeRoad[1] = time;
+  33:Core/Src/fsm_traffic_system.c ****         break;
+  34:Core/Src/fsm_traffic_system.c ****     case MODE4:
+  35:Core/Src/fsm_traffic_system.c ****         setTimeRoad[2] = time;
+  36:Core/Src/fsm_traffic_system.c ****         break;
+  37:Core/Src/fsm_traffic_system.c ****     default:
+  38:Core/Src/fsm_traffic_system.c ****         break;
+  39:Core/Src/fsm_traffic_system.c ****     }
+  40:Core/Src/fsm_traffic_system.c **** }
+ 178              		.loc 1 40 1 is_stmt 0 view .LVU39
+ 179 001a 7047     		bx	lr
+ 180              	.L18:
+  29:Core/Src/fsm_traffic_system.c ****         break;
+ 181              		.loc 1 29 9 is_stmt 1 view .LVU40
+  29:Core/Src/fsm_traffic_system.c ****         break;
+ 182              		.loc 1 29 24 is_stmt 0 view .LVU41
+ 183 001c 054B     		ldr	r3, .L19+4
+ 184 001e 1A60     		str	r2, [r3]
+  30:Core/Src/fsm_traffic_system.c ****     case MODE3:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 5
+
+
+ 185              		.loc 1 30 9 is_stmt 1 view .LVU42
+ 186 0020 7047     		bx	lr
+ 187              	.L15:
+  32:Core/Src/fsm_traffic_system.c ****         break;
+ 188              		.loc 1 32 9 view .LVU43
+  32:Core/Src/fsm_traffic_system.c ****         break;
+ 189              		.loc 1 32 24 is_stmt 0 view .LVU44
+ 190 0022 044B     		ldr	r3, .L19+4
+ 191 0024 5A60     		str	r2, [r3, #4]
+  33:Core/Src/fsm_traffic_system.c ****     case MODE4:
+ 192              		.loc 1 33 9 is_stmt 1 view .LVU45
+ 193 0026 7047     		bx	lr
+ 194              	.L16:
+  35:Core/Src/fsm_traffic_system.c ****         break;
+ 195              		.loc 1 35 9 view .LVU46
+  35:Core/Src/fsm_traffic_system.c ****         break;
+ 196              		.loc 1 35 24 is_stmt 0 view .LVU47
+ 197 0028 024B     		ldr	r3, .L19+4
+ 198 002a 9A60     		str	r2, [r3, #8]
+  36:Core/Src/fsm_traffic_system.c ****     default:
+ 199              		.loc 1 36 9 is_stmt 1 view .LVU48
+ 200              		.loc 1 40 1 is_stmt 0 view .LVU49
+ 201 002c F5E7     		b	.L14
+ 202              	.L20:
+ 203 002e 00BF     		.align	2
+ 204              	.L19:
+ 205 0030 00000000 		.word	led7SEGbuffer
+ 206 0034 00000000 		.word	setTimeRoad
+ 207              		.cfi_endproc
+ 208              	.LFE67:
+ 210              		.section	.text.setStateTrafficSystem,"ax",%progbits
+ 211              		.align	1
+ 212              		.global	setStateTrafficSystem
+ 213              		.syntax unified
+ 214              		.thumb
+ 215              		.thumb_func
+ 217              	setStateTrafficSystem:
+ 218              	.LVL8:
+ 219              	.LFB68:
+  41:Core/Src/fsm_traffic_system.c **** void setStateTrafficSystem(int state){
+ 220              		.loc 1 41 38 is_stmt 1 view -0
+ 221              		.cfi_startproc
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 224              		.loc 1 41 38 is_stmt 0 view .LVU51
+ 225 0000 10B5     		push	{r4, lr}
+ 226              	.LCFI0:
+ 227              		.cfi_def_cfa_offset 8
+ 228              		.cfi_offset 4, -8
+ 229              		.cfi_offset 14, -4
+  42:Core/Src/fsm_traffic_system.c ****     switch (state)
+ 230              		.loc 1 42 5 is_stmt 1 view .LVU52
+ 231 0002 0138     		subs	r0, r0, #1
+ 232              	.LVL9:
+ 233              		.loc 1 42 5 is_stmt 0 view .LVU53
+ 234 0004 0F28     		cmp	r0, #15
+ 235 0006 2AD8     		bhi	.L21
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 6
+
+
+ 236 0008 DFE800F0 		tbb	[pc, r0]
+ 237              	.L24:
+ 238 000c F6       		.byte	(.L31-.L24)/2
+ 239 000d 08       		.byte	(.L30-.L24)/2
+ 240 000e 2A       		.byte	(.L29-.L24)/2
+ 241 000f 4C       		.byte	(.L28-.L24)/2
+ 242 0010 6E       		.byte	(.L27-.L24)/2
+ 243 0011 29       		.byte	(.L21-.L24)/2
+ 244 0012 29       		.byte	(.L21-.L24)/2
+ 245 0013 29       		.byte	(.L21-.L24)/2
+ 246 0014 29       		.byte	(.L21-.L24)/2
+ 247 0015 29       		.byte	(.L21-.L24)/2
+ 248 0016 29       		.byte	(.L21-.L24)/2
+ 249 0017 29       		.byte	(.L21-.L24)/2
+ 250 0018 29       		.byte	(.L21-.L24)/2
+ 251 0019 90       		.byte	(.L26-.L24)/2
+ 252 001a D4       		.byte	(.L25-.L24)/2
+ 253 001b B2       		.byte	(.L23-.L24)/2
+ 254              		.p2align 1
+ 255              	.L30:
+  43:Core/Src/fsm_traffic_system.c ****     {
+  44:Core/Src/fsm_traffic_system.c ****     case RED1_GREEN2:
+  45:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,SET);
+ 256              		.loc 1 45 9 is_stmt 1 view .LVU54
+ 257 001c 874C     		ldr	r4, .L34
+ 258 001e 0122     		movs	r2, #1
+ 259 0020 2021     		movs	r1, #32
+ 260 0022 2046     		mov	r0, r4
+ 261              	.LVL10:
+ 262              		.loc 1 45 9 is_stmt 0 view .LVU55
+ 263 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 264              	.LVL11:
+  46:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 265              		.loc 1 46 9 is_stmt 1 view .LVU56
+ 266 0028 0022     		movs	r2, #0
+ 267 002a 4021     		movs	r1, #64
+ 268 002c 2046     		mov	r0, r4
+ 269 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 270              	.LVL12:
+  47:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 271              		.loc 1 47 9 view .LVU57
+ 272 0032 0022     		movs	r2, #0
+ 273 0034 8021     		movs	r1, #128
+ 274 0036 2046     		mov	r0, r4
+ 275 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 276              	.LVL13:
+  48:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ 277              		.loc 1 48 9 view .LVU58
+ 278 003c 04F58064 		add	r4, r4, #1024
+ 279 0040 0022     		movs	r2, #0
+ 280 0042 0121     		movs	r1, #1
+ 281 0044 2046     		mov	r0, r4
+ 282 0046 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 283              	.LVL14:
+  49:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,SET);
+ 284              		.loc 1 49 9 view .LVU59
+ 285 004a 0122     		movs	r2, #1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 7
+
+
+ 286 004c 0221     		movs	r1, #2
+ 287 004e 2046     		mov	r0, r4
+ 288 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 289              	.LVL15:
+  50:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 290              		.loc 1 50 9 view .LVU60
+ 291 0054 0022     		movs	r2, #0
+ 292 0056 0421     		movs	r1, #4
+ 293 0058 2046     		mov	r0, r4
+ 294 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 295              	.LVL16:
+  51:Core/Src/fsm_traffic_system.c ****         break;   
+ 296              		.loc 1 51 9 view .LVU61
+ 297              	.L21:
+  52:Core/Src/fsm_traffic_system.c ****     case RED1_YELLOW2:
+  53:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,SET);
+  54:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+  55:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+  56:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+  57:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  58:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+  59:Core/Src/fsm_traffic_system.c ****         break; 
+  60:Core/Src/fsm_traffic_system.c ****     case GREEN1_RED2:
+  61:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,RESET);
+  62:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,SET);
+  63:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+  64:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+  65:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  66:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+  67:Core/Src/fsm_traffic_system.c ****         break;  
+  68:Core/Src/fsm_traffic_system.c ****     case YELLOW1_RED2:
+  69:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,RESET);
+  70:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+  71:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+  72:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+  73:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  74:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+  75:Core/Src/fsm_traffic_system.c ****         break;
+  76:Core/Src/fsm_traffic_system.c ****     case RED1_RED2:
+  77:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,SET);
+  78:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+  79:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+  80:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+  81:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  82:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+  83:Core/Src/fsm_traffic_system.c ****         break;
+  84:Core/Src/fsm_traffic_system.c ****     case YELLOW1_YELLOW2:
+  85:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,RESET);
+  86:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+  87:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+  88:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+  89:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  90:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+  91:Core/Src/fsm_traffic_system.c ****         break;
+  92:Core/Src/fsm_traffic_system.c ****     case GREEN1_GREEN2:
+  93:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,RESET);
+  94:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 8
+
+
+  95:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+  96:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+  97:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+  98:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+  99:Core/Src/fsm_traffic_system.c ****         break;
+ 100:Core/Src/fsm_traffic_system.c ****     case INIT:
+ 101:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED1_GPIO_Port,RED1_Pin,RESET);
+ 102:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 103:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 104:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ 105:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 106:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 107:Core/Src/fsm_traffic_system.c ****         break;
+ 108:Core/Src/fsm_traffic_system.c ****     default:
+ 109:Core/Src/fsm_traffic_system.c ****         break;
+ 110:Core/Src/fsm_traffic_system.c ****     }
+ 111:Core/Src/fsm_traffic_system.c **** }
+ 298              		.loc 1 111 1 is_stmt 0 view .LVU62
+ 299 005e 10BD     		pop	{r4, pc}
+ 300              	.L29:
+  53:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 301              		.loc 1 53 9 is_stmt 1 view .LVU63
+ 302 0060 764C     		ldr	r4, .L34
+ 303 0062 0122     		movs	r2, #1
+ 304 0064 2021     		movs	r1, #32
+ 305 0066 2046     		mov	r0, r4
+ 306 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 307              	.LVL17:
+  54:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 308              		.loc 1 54 9 view .LVU64
+ 309 006c 0022     		movs	r2, #0
+ 310 006e 4021     		movs	r1, #64
+ 311 0070 2046     		mov	r0, r4
+ 312 0072 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 313              	.LVL18:
+  55:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ 314              		.loc 1 55 9 view .LVU65
+ 315 0076 0022     		movs	r2, #0
+ 316 0078 8021     		movs	r1, #128
+ 317 007a 2046     		mov	r0, r4
+ 318 007c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 319              	.LVL19:
+  56:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 320              		.loc 1 56 9 view .LVU66
+ 321 0080 04F58064 		add	r4, r4, #1024
+ 322 0084 0022     		movs	r2, #0
+ 323 0086 0121     		movs	r1, #1
+ 324 0088 2046     		mov	r0, r4
+ 325 008a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 326              	.LVL20:
+  57:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+ 327              		.loc 1 57 9 view .LVU67
+ 328 008e 0022     		movs	r2, #0
+ 329 0090 0221     		movs	r1, #2
+ 330 0092 2046     		mov	r0, r4
+ 331 0094 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 332              	.LVL21:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 9
+
+
+  58:Core/Src/fsm_traffic_system.c ****         break; 
+ 333              		.loc 1 58 9 view .LVU68
+ 334 0098 0122     		movs	r2, #1
+ 335 009a 0421     		movs	r1, #4
+ 336 009c 2046     		mov	r0, r4
+ 337 009e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 338              	.LVL22:
+  59:Core/Src/fsm_traffic_system.c ****     case GREEN1_RED2:
+ 339              		.loc 1 59 9 view .LVU69
+ 340 00a2 DCE7     		b	.L21
+ 341              	.L28:
+  61:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,SET);
+ 342              		.loc 1 61 9 view .LVU70
+ 343 00a4 654C     		ldr	r4, .L34
+ 344 00a6 0022     		movs	r2, #0
+ 345 00a8 2021     		movs	r1, #32
+ 346 00aa 2046     		mov	r0, r4
+ 347 00ac FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 348              	.LVL23:
+  62:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 349              		.loc 1 62 9 view .LVU71
+ 350 00b0 0122     		movs	r2, #1
+ 351 00b2 4021     		movs	r1, #64
+ 352 00b4 2046     		mov	r0, r4
+ 353 00b6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 354              	.LVL24:
+  63:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+ 355              		.loc 1 63 9 view .LVU72
+ 356 00ba 0022     		movs	r2, #0
+ 357 00bc 8021     		movs	r1, #128
+ 358 00be 2046     		mov	r0, r4
+ 359 00c0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 360              	.LVL25:
+  64:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 361              		.loc 1 64 9 view .LVU73
+ 362 00c4 04F58064 		add	r4, r4, #1024
+ 363 00c8 0122     		movs	r2, #1
+ 364 00ca 1146     		mov	r1, r2
+ 365 00cc 2046     		mov	r0, r4
+ 366 00ce FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 367              	.LVL26:
+  65:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 368              		.loc 1 65 9 view .LVU74
+ 369 00d2 0022     		movs	r2, #0
+ 370 00d4 0221     		movs	r1, #2
+ 371 00d6 2046     		mov	r0, r4
+ 372 00d8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 373              	.LVL27:
+  66:Core/Src/fsm_traffic_system.c ****         break;  
+ 374              		.loc 1 66 9 view .LVU75
+ 375 00dc 0022     		movs	r2, #0
+ 376 00de 0421     		movs	r1, #4
+ 377 00e0 2046     		mov	r0, r4
+ 378 00e2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 379              	.LVL28:
+  67:Core/Src/fsm_traffic_system.c ****     case YELLOW1_RED2:
+ 380              		.loc 1 67 9 view .LVU76
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 10
+
+
+ 381 00e6 BAE7     		b	.L21
+ 382              	.L27:
+  69:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 383              		.loc 1 69 9 view .LVU77
+ 384 00e8 544C     		ldr	r4, .L34
+ 385 00ea 0022     		movs	r2, #0
+ 386 00ec 2021     		movs	r1, #32
+ 387 00ee 2046     		mov	r0, r4
+ 388 00f0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 389              	.LVL29:
+  70:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+ 390              		.loc 1 70 9 view .LVU78
+ 391 00f4 0022     		movs	r2, #0
+ 392 00f6 4021     		movs	r1, #64
+ 393 00f8 2046     		mov	r0, r4
+ 394 00fa FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 395              	.LVL30:
+  71:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+ 396              		.loc 1 71 9 view .LVU79
+ 397 00fe 0122     		movs	r2, #1
+ 398 0100 8021     		movs	r1, #128
+ 399 0102 2046     		mov	r0, r4
+ 400 0104 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 401              	.LVL31:
+  72:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 402              		.loc 1 72 9 view .LVU80
+ 403 0108 04F58064 		add	r4, r4, #1024
+ 404 010c 0122     		movs	r2, #1
+ 405 010e 1146     		mov	r1, r2
+ 406 0110 2046     		mov	r0, r4
+ 407 0112 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 408              	.LVL32:
+  73:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 409              		.loc 1 73 9 view .LVU81
+ 410 0116 0022     		movs	r2, #0
+ 411 0118 0221     		movs	r1, #2
+ 412 011a 2046     		mov	r0, r4
+ 413 011c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 414              	.LVL33:
+  74:Core/Src/fsm_traffic_system.c ****         break;
+ 415              		.loc 1 74 9 view .LVU82
+ 416 0120 0022     		movs	r2, #0
+ 417 0122 0421     		movs	r1, #4
+ 418 0124 2046     		mov	r0, r4
+ 419 0126 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 420              	.LVL34:
+  75:Core/Src/fsm_traffic_system.c ****     case RED1_RED2:
+ 421              		.loc 1 75 9 view .LVU83
+ 422 012a 98E7     		b	.L21
+ 423              	.L26:
+  77:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 424              		.loc 1 77 9 view .LVU84
+ 425 012c 434C     		ldr	r4, .L34
+ 426 012e 0122     		movs	r2, #1
+ 427 0130 2021     		movs	r1, #32
+ 428 0132 2046     		mov	r0, r4
+ 429 0134 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 11
+
+
+ 430              	.LVL35:
+  78:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 431              		.loc 1 78 9 view .LVU85
+ 432 0138 0022     		movs	r2, #0
+ 433 013a 4021     		movs	r1, #64
+ 434 013c 2046     		mov	r0, r4
+ 435 013e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 436              	.LVL36:
+  79:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,SET);
+ 437              		.loc 1 79 9 view .LVU86
+ 438 0142 0022     		movs	r2, #0
+ 439 0144 8021     		movs	r1, #128
+ 440 0146 2046     		mov	r0, r4
+ 441 0148 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 442              	.LVL37:
+  80:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 443              		.loc 1 80 9 view .LVU87
+ 444 014c 04F58064 		add	r4, r4, #1024
+ 445 0150 0122     		movs	r2, #1
+ 446 0152 1146     		mov	r1, r2
+ 447 0154 2046     		mov	r0, r4
+ 448 0156 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 449              	.LVL38:
+  81:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 450              		.loc 1 81 9 view .LVU88
+ 451 015a 0022     		movs	r2, #0
+ 452 015c 0221     		movs	r1, #2
+ 453 015e 2046     		mov	r0, r4
+ 454 0160 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 455              	.LVL39:
+  82:Core/Src/fsm_traffic_system.c ****         break;
+ 456              		.loc 1 82 9 view .LVU89
+ 457 0164 0022     		movs	r2, #0
+ 458 0166 0421     		movs	r1, #4
+ 459 0168 2046     		mov	r0, r4
+ 460 016a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 461              	.LVL40:
+  83:Core/Src/fsm_traffic_system.c ****     case YELLOW1_YELLOW2:
+ 462              		.loc 1 83 9 view .LVU90
+ 463 016e 76E7     		b	.L21
+ 464              	.L23:
+  85:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 465              		.loc 1 85 9 view .LVU91
+ 466 0170 324C     		ldr	r4, .L34
+ 467 0172 0022     		movs	r2, #0
+ 468 0174 2021     		movs	r1, #32
+ 469 0176 2046     		mov	r0, r4
+ 470 0178 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 471              	.LVL41:
+  86:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+ 472              		.loc 1 86 9 view .LVU92
+ 473 017c 0022     		movs	r2, #0
+ 474 017e 4021     		movs	r1, #64
+ 475 0180 2046     		mov	r0, r4
+ 476 0182 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 477              	.LVL42:
+  87:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 12
+
+
+ 478              		.loc 1 87 9 view .LVU93
+ 479 0186 0122     		movs	r2, #1
+ 480 0188 8021     		movs	r1, #128
+ 481 018a 2046     		mov	r0, r4
+ 482 018c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 483              	.LVL43:
+  88:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 484              		.loc 1 88 9 view .LVU94
+ 485 0190 04F58064 		add	r4, r4, #1024
+ 486 0194 0022     		movs	r2, #0
+ 487 0196 0121     		movs	r1, #1
+ 488 0198 2046     		mov	r0, r4
+ 489 019a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 490              	.LVL44:
+  89:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+ 491              		.loc 1 89 9 view .LVU95
+ 492 019e 0022     		movs	r2, #0
+ 493 01a0 0221     		movs	r1, #2
+ 494 01a2 2046     		mov	r0, r4
+ 495 01a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 496              	.LVL45:
+  90:Core/Src/fsm_traffic_system.c ****         break;
+ 497              		.loc 1 90 9 view .LVU96
+ 498 01a8 0122     		movs	r2, #1
+ 499 01aa 0421     		movs	r1, #4
+ 500 01ac 2046     		mov	r0, r4
+ 501 01ae FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 502              	.LVL46:
+  91:Core/Src/fsm_traffic_system.c ****     case GREEN1_GREEN2:
+ 503              		.loc 1 91 9 view .LVU97
+ 504 01b2 54E7     		b	.L21
+ 505              	.L25:
+  93:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 506              		.loc 1 93 9 view .LVU98
+ 507 01b4 214C     		ldr	r4, .L34
+ 508 01b6 0022     		movs	r2, #0
+ 509 01b8 2021     		movs	r1, #32
+ 510 01ba 2046     		mov	r0, r4
+ 511 01bc FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 512              	.LVL47:
+  94:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,SET);
+ 513              		.loc 1 94 9 view .LVU99
+ 514 01c0 0022     		movs	r2, #0
+ 515 01c2 4021     		movs	r1, #64
+ 516 01c4 2046     		mov	r0, r4
+ 517 01c6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 518              	.LVL48:
+  95:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ 519              		.loc 1 95 9 view .LVU100
+ 520 01ca 0122     		movs	r2, #1
+ 521 01cc 8021     		movs	r1, #128
+ 522 01ce 2046     		mov	r0, r4
+ 523 01d0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 524              	.LVL49:
+  96:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 525              		.loc 1 96 9 view .LVU101
+ 526 01d4 04F58064 		add	r4, r4, #1024
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 13
+
+
+ 527 01d8 0022     		movs	r2, #0
+ 528 01da 0121     		movs	r1, #1
+ 529 01dc 2046     		mov	r0, r4
+ 530 01de FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 531              	.LVL50:
+  97:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,SET);
+ 532              		.loc 1 97 9 view .LVU102
+ 533 01e2 0022     		movs	r2, #0
+ 534 01e4 0221     		movs	r1, #2
+ 535 01e6 2046     		mov	r0, r4
+ 536 01e8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 537              	.LVL51:
+  98:Core/Src/fsm_traffic_system.c ****         break;
+ 538              		.loc 1 98 9 view .LVU103
+ 539 01ec 0122     		movs	r2, #1
+ 540 01ee 0421     		movs	r1, #4
+ 541 01f0 2046     		mov	r0, r4
+ 542 01f2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 543              	.LVL52:
+  99:Core/Src/fsm_traffic_system.c ****     case INIT:
+ 544              		.loc 1 99 9 view .LVU104
+ 545 01f6 32E7     		b	.L21
+ 546              	.L31:
+ 101:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN1_GPIO_Port,GREEN1_Pin,RESET);
+ 547              		.loc 1 101 9 view .LVU105
+ 548 01f8 104C     		ldr	r4, .L34
+ 549 01fa 0022     		movs	r2, #0
+ 550 01fc 2021     		movs	r1, #32
+ 551 01fe 2046     		mov	r0, r4
+ 552 0200 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 553              	.LVL53:
+ 102:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW1_GPIO_Port,YELLOW1_Pin,RESET);
+ 554              		.loc 1 102 9 view .LVU106
+ 555 0204 0022     		movs	r2, #0
+ 556 0206 4021     		movs	r1, #64
+ 557 0208 2046     		mov	r0, r4
+ 558 020a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 559              	.LVL54:
+ 103:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(RED2_GPIO_Port,RED2_Pin,RESET);
+ 560              		.loc 1 103 9 view .LVU107
+ 561 020e 0022     		movs	r2, #0
+ 562 0210 8021     		movs	r1, #128
+ 563 0212 2046     		mov	r0, r4
+ 564 0214 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 565              	.LVL55:
+ 104:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(GREEN2_GPIO_Port,GREEN2_Pin,RESET);
+ 566              		.loc 1 104 9 view .LVU108
+ 567 0218 04F58064 		add	r4, r4, #1024
+ 568 021c 0022     		movs	r2, #0
+ 569 021e 0121     		movs	r1, #1
+ 570 0220 2046     		mov	r0, r4
+ 571 0222 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 572              	.LVL56:
+ 105:Core/Src/fsm_traffic_system.c ****         HAL_GPIO_WritePin(YELLOW2_GPIO_Port,YELLOW2_Pin,RESET);
+ 573              		.loc 1 105 9 view .LVU109
+ 574 0226 0022     		movs	r2, #0
+ 575 0228 0221     		movs	r1, #2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 14
+
+
+ 576 022a 2046     		mov	r0, r4
+ 577 022c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 578              	.LVL57:
+ 106:Core/Src/fsm_traffic_system.c ****         break;
+ 579              		.loc 1 106 9 view .LVU110
+ 580 0230 0022     		movs	r2, #0
+ 581 0232 0421     		movs	r1, #4
+ 582 0234 2046     		mov	r0, r4
+ 583 0236 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 584              	.LVL58:
+ 107:Core/Src/fsm_traffic_system.c ****     default:
+ 585              		.loc 1 107 9 view .LVU111
+ 586              		.loc 1 111 1 is_stmt 0 view .LVU112
+ 587 023a 10E7     		b	.L21
+ 588              	.L35:
+ 589              		.align	2
+ 590              	.L34:
+ 591 023c 00080140 		.word	1073809408
+ 592              		.cfi_endproc
+ 593              	.LFE68:
+ 595              		.section	.text.fsmTrafficSystemRun,"ax",%progbits
+ 596              		.align	1
+ 597              		.global	fsmTrafficSystemRun
+ 598              		.syntax unified
+ 599              		.thumb
+ 600              		.thumb_func
+ 602              	fsmTrafficSystemRun:
+ 603              	.LFB69:
+ 112:Core/Src/fsm_traffic_system.c **** void fsmTrafficSystemRun(){
+ 604              		.loc 1 112 27 is_stmt 1 view -0
+ 605              		.cfi_startproc
+ 606              		@ args = 0, pretend = 0, frame = 0
+ 607              		@ frame_needed = 0, uses_anonymous_args = 0
+ 608 0000 38B5     		push	{r3, r4, r5, lr}
+ 609              	.LCFI1:
+ 610              		.cfi_def_cfa_offset 16
+ 611              		.cfi_offset 3, -16
+ 612              		.cfi_offset 4, -12
+ 613              		.cfi_offset 5, -8
+ 614              		.cfi_offset 14, -4
+ 113:Core/Src/fsm_traffic_system.c ****     switch (state)
+ 615              		.loc 1 113 5 view .LVU114
+ 616 0002 BD4B     		ldr	r3, .L91
+ 617 0004 1B68     		ldr	r3, [r3]
+ 618 0006 013B     		subs	r3, r3, #1
+ 619 0008 072B     		cmp	r3, #7
+ 620 000a 1DD8     		bhi	.L37
+ 621 000c DFE813F0 		tbh	[pc, r3, lsl #1]
+ 622              	.L39:
+ 623 0010 0800     		.2byte	(.L46-.L39)/2
+ 624 0012 2200     		.2byte	(.L45-.L39)/2
+ 625 0014 6000     		.2byte	(.L44-.L39)/2
+ 626 0016 9E00     		.2byte	(.L43-.L39)/2
+ 627 0018 DD00     		.2byte	(.L42-.L39)/2
+ 628 001a 1C01     		.2byte	(.L41-.L39)/2
+ 629 001c 9001     		.2byte	(.L40-.L39)/2
+ 630 001e F401     		.2byte	(.L38-.L39)/2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 15
+
+
+ 631              		.p2align 1
+ 632              	.L46:
+ 114:Core/Src/fsm_traffic_system.c ****     {
+ 115:Core/Src/fsm_traffic_system.c ****     case INIT:
+ 116:Core/Src/fsm_traffic_system.c ****         // Control LED 3 mau
+ 117:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(INIT);
+ 633              		.loc 1 117 9 view .LVU115
+ 634 0020 0120     		movs	r0, #1
+ 635 0022 FFF7FEFF 		bl	setStateTrafficSystem
+ 636              	.LVL59:
+ 118:Core/Src/fsm_traffic_system.c **** 
+ 119:Core/Src/fsm_traffic_system.c ****         // trans state mode1
+ 120:Core/Src/fsm_traffic_system.c ****         state = RED1_GREEN2;
+ 637              		.loc 1 120 9 view .LVU116
+ 638              		.loc 1 120 15 is_stmt 0 view .LVU117
+ 639 0026 0224     		movs	r4, #2
+ 640 0028 B34B     		ldr	r3, .L91
+ 641 002a 1C60     		str	r4, [r3]
+ 121:Core/Src/fsm_traffic_system.c ****         setTimer1(timeRoad[1]*1000);
+ 642              		.loc 1 121 9 is_stmt 1 view .LVU118
+ 643              		.loc 1 121 27 is_stmt 0 view .LVU119
+ 644 002c B34B     		ldr	r3, .L91+4
+ 645 002e 5868     		ldr	r0, [r3, #4]
+ 646              		.loc 1 121 9 view .LVU120
+ 647 0030 4FF47A75 		mov	r5, #1000
+ 648 0034 05FB00F0 		mul	r0, r5, r0
+ 649 0038 FFF7FEFF 		bl	setTimer1
+ 650              	.LVL60:
+ 122:Core/Src/fsm_traffic_system.c **** 
+ 123:Core/Src/fsm_traffic_system.c ****         // control led 7 doan
+ 124:Core/Src/fsm_traffic_system.c ****         setTimer3(1000);
+ 651              		.loc 1 124 9 is_stmt 1 view .LVU121
+ 652 003c 2846     		mov	r0, r5
+ 653 003e FFF7FEFF 		bl	setTimer3
+ 654              	.LVL61:
+ 125:Core/Src/fsm_traffic_system.c ****         led7SEG4Mode(RED1_GREEN2);
+ 655              		.loc 1 125 9 view .LVU122
+ 656 0042 2046     		mov	r0, r4
+ 657 0044 FFF7FEFF 		bl	led7SEG4Mode
+ 658              	.LVL62:
+ 126:Core/Src/fsm_traffic_system.c ****         break; 
+ 659              		.loc 1 126 9 view .LVU123
+ 660              	.L37:
+ 127:Core/Src/fsm_traffic_system.c ****     case RED1_GREEN2:
+ 128:Core/Src/fsm_traffic_system.c ****         //control led 3 mau
+ 129:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(RED1_GREEN2);
+ 130:Core/Src/fsm_traffic_system.c **** 
+ 131:Core/Src/fsm_traffic_system.c ****         // tru second moi giay
+ 132:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 133:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 134:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 135:Core/Src/fsm_traffic_system.c ****         }
+ 136:Core/Src/fsm_traffic_system.c ****         // trans state mode1
+ 137:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 138:Core/Src/fsm_traffic_system.c ****             state = RED1_YELLOW2;
+ 139:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 140:Core/Src/fsm_traffic_system.c **** 
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 16
+
+
+ 141:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 142:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(RED1_YELLOW2);
+ 143:Core/Src/fsm_traffic_system.c ****         }
+ 144:Core/Src/fsm_traffic_system.c **** 
+ 145:Core/Src/fsm_traffic_system.c ****         // control button
+ 146:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 147:Core/Src/fsm_traffic_system.c ****             // flag for debug
+ 148:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 149:Core/Src/fsm_traffic_system.c ****             // trans state mode2
+ 150:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 151:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 152:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 153:Core/Src/fsm_traffic_system.c **** 
+ 154:Core/Src/fsm_traffic_system.c ****             // control led 7 segment mode2
+ 155:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 156:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 157:Core/Src/fsm_traffic_system.c ****         }
+ 158:Core/Src/fsm_traffic_system.c **** 
+ 159:Core/Src/fsm_traffic_system.c ****         break; 
+ 160:Core/Src/fsm_traffic_system.c ****     case RED1_YELLOW2:
+ 161:Core/Src/fsm_traffic_system.c ****         //control led 3 mau
+ 162:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(RED1_YELLOW2);
+ 163:Core/Src/fsm_traffic_system.c **** 
+ 164:Core/Src/fsm_traffic_system.c ****         // tru second moi giay
+ 165:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 166:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 167:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 168:Core/Src/fsm_traffic_system.c ****         }
+ 169:Core/Src/fsm_traffic_system.c **** 
+ 170:Core/Src/fsm_traffic_system.c ****         // trans state mode1
+ 171:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 172:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 173:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 174:Core/Src/fsm_traffic_system.c **** 
+ 175:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 176:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 177:Core/Src/fsm_traffic_system.c ****         }
+ 178:Core/Src/fsm_traffic_system.c ****         //control button
+ 179:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 180:Core/Src/fsm_traffic_system.c ****             //flag for debug
+ 181:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 182:Core/Src/fsm_traffic_system.c ****             //trans state mode2
+ 183:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 184:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 185:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 186:Core/Src/fsm_traffic_system.c **** 
+ 187:Core/Src/fsm_traffic_system.c ****             //control led 7 segment mode2
+ 188:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 189:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 190:Core/Src/fsm_traffic_system.c ****         }
+ 191:Core/Src/fsm_traffic_system.c **** 
+ 192:Core/Src/fsm_traffic_system.c ****         break; 
+ 193:Core/Src/fsm_traffic_system.c ****     case GREEN1_RED2:
+ 194:Core/Src/fsm_traffic_system.c ****         //control led 3 mau
+ 195:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(GREEN1_RED2);
+ 196:Core/Src/fsm_traffic_system.c **** 
+ 197:Core/Src/fsm_traffic_system.c ****         // tru second moi giay
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 17
+
+
+ 198:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 199:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 200:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 201:Core/Src/fsm_traffic_system.c ****         }
+ 202:Core/Src/fsm_traffic_system.c **** 
+ 203:Core/Src/fsm_traffic_system.c ****         //trans state mode1
+ 204:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 205:Core/Src/fsm_traffic_system.c ****             state = YELLOW1_RED2;
+ 206:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 207:Core/Src/fsm_traffic_system.c **** 
+ 208:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 209:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(YELLOW1_RED2);
+ 210:Core/Src/fsm_traffic_system.c ****         }
+ 211:Core/Src/fsm_traffic_system.c **** 
+ 212:Core/Src/fsm_traffic_system.c ****         //control button
+ 213:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 214:Core/Src/fsm_traffic_system.c ****             // flag for debug
+ 215:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 216:Core/Src/fsm_traffic_system.c ****             // trans state mode2
+ 217:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 218:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 219:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 220:Core/Src/fsm_traffic_system.c **** 
+ 221:Core/Src/fsm_traffic_system.c ****             // control led 7 doan cho mode2
+ 222:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 223:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 224:Core/Src/fsm_traffic_system.c ****         }
+ 225:Core/Src/fsm_traffic_system.c ****         break; 
+ 226:Core/Src/fsm_traffic_system.c ****     case YELLOW1_RED2:
+ 227:Core/Src/fsm_traffic_system.c ****         //control led 3 mau
+ 228:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(YELLOW1_RED2);
+ 229:Core/Src/fsm_traffic_system.c **** 
+ 230:Core/Src/fsm_traffic_system.c ****         // tru second moi giay
+ 231:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 232:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 233:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 234:Core/Src/fsm_traffic_system.c ****         }
+ 235:Core/Src/fsm_traffic_system.c **** 
+ 236:Core/Src/fsm_traffic_system.c ****         // trans state mode normal
+ 237:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 238:Core/Src/fsm_traffic_system.c ****             state = RED1_GREEN2;
+ 239:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 240:Core/Src/fsm_traffic_system.c **** 
+ 241:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 242:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(RED1_GREEN2);
+ 243:Core/Src/fsm_traffic_system.c ****         }
+ 244:Core/Src/fsm_traffic_system.c ****         //control button
+ 245:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 246:Core/Src/fsm_traffic_system.c ****             // flag for debug
+ 247:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 248:Core/Src/fsm_traffic_system.c ****             // trans state mode2
+ 249:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 250:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 251:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 252:Core/Src/fsm_traffic_system.c **** 
+ 253:Core/Src/fsm_traffic_system.c ****             // control led 7 doan cho mode2
+ 254:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 18
+
+
+ 255:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 256:Core/Src/fsm_traffic_system.c ****         }
+ 257:Core/Src/fsm_traffic_system.c ****         break;
+ 258:Core/Src/fsm_traffic_system.c ****     case MODE2:
+ 259:Core/Src/fsm_traffic_system.c ****         // hen gio return mode1
+ 260:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 261:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 262:Core/Src/fsm_traffic_system.c ****             // kiem tra time duration duoc set co hop le chua
+ 263:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 264:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 265:Core/Src/fsm_traffic_system.c ****             
+ 266:Core/Src/fsm_traffic_system.c ****             // cap nhat lai 4 led 7 seg cho che do normal
+ 267:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 268:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 269:Core/Src/fsm_traffic_system.c ****         }
+ 270:Core/Src/fsm_traffic_system.c **** 
+ 271:Core/Src/fsm_traffic_system.c ****         // control button
+ 272:Core/Src/fsm_traffic_system.c ****         // button chinh mode
+ 273:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 274:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 275:Core/Src/fsm_traffic_system.c ****             state = MODE3;
+ 276:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 277:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 278:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE3);
+ 279:Core/Src/fsm_traffic_system.c **** 
+ 280:Core/Src/fsm_traffic_system.c ****             // chuyen sang MODE3 reset flag de den khong bi blink ngay
+ 281:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 282:Core/Src/fsm_traffic_system.c ****         }
+ 283:Core/Src/fsm_traffic_system.c ****         //button chinh thoi gian
+ 284:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1){
+ 285:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 286:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 287:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 288:Core/Src/fsm_traffic_system.c ****         }
+ 289:Core/Src/fsm_traffic_system.c ****         //button save thoi gian
+ 290:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 291:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 292:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE2);
+ 293:Core/Src/fsm_traffic_system.c **** 
+ 294:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 295:Core/Src/fsm_traffic_system.c ****         }
+ 296:Core/Src/fsm_traffic_system.c **** 
+ 297:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 298:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 299:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(RED1_GPIO_Port,RED1_Pin);
+ 300:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(RED2_GPIO_Port,RED2_Pin);
+ 301:Core/Src/fsm_traffic_system.c ****         }
+ 302:Core/Src/fsm_traffic_system.c ****         break;
+ 303:Core/Src/fsm_traffic_system.c ****     case MODE3:
+ 304:Core/Src/fsm_traffic_system.c ****         // alarm return mode1
+ 305:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 306:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 307:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 308:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 309:Core/Src/fsm_traffic_system.c ****             
+ 310:Core/Src/fsm_traffic_system.c ****             // cap nhat lai 4 led 7 seg cho che do normal
+ 311:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 19
+
+
+ 312:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 313:Core/Src/fsm_traffic_system.c ****         }
+ 314:Core/Src/fsm_traffic_system.c **** 
+ 315:Core/Src/fsm_traffic_system.c ****         //control button
+ 316:Core/Src/fsm_traffic_system.c ****         //button chinh mode
+ 317:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 318:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 319:Core/Src/fsm_traffic_system.c ****             state = MODE4;
+ 320:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 321:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 322:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE4);
+ 323:Core/Src/fsm_traffic_system.c **** 
+ 324:Core/Src/fsm_traffic_system.c ****             // chuyen sang MODE3 reset flag de den khong bi blink ngay
+ 325:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 326:Core/Src/fsm_traffic_system.c ****         }
+ 327:Core/Src/fsm_traffic_system.c ****         // button chinh gio
+ 328:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 329:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 330:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 331:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 332:Core/Src/fsm_traffic_system.c ****         }
+ 333:Core/Src/fsm_traffic_system.c ****         //button save gio
+ 334:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 335:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 336:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE3);
+ 337:Core/Src/fsm_traffic_system.c **** 
+ 338:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 339:Core/Src/fsm_traffic_system.c ****         }
+ 340:Core/Src/fsm_traffic_system.c **** 
+ 341:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 342:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 343:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(GREEN1_GPIO_Port,GREEN1_Pin);
+ 344:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(GREEN2_GPIO_Port,GREEN2_Pin);
+ 345:Core/Src/fsm_traffic_system.c ****         }
+ 346:Core/Src/fsm_traffic_system.c ****         break;
+ 347:Core/Src/fsm_traffic_system.c ****     case MODE4:
+ 348:Core/Src/fsm_traffic_system.c ****         //alarm return mode1
+ 349:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 350:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 351:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 352:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 353:Core/Src/fsm_traffic_system.c **** 
+ 354:Core/Src/fsm_traffic_system.c ****             // cap nhat lai 4 led 7 seg cho che do normal
+ 355:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 356:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 357:Core/Src/fsm_traffic_system.c ****         }
+ 358:Core/Src/fsm_traffic_system.c ****         //control button
+ 359:Core/Src/fsm_traffic_system.c ****         //button chinh mode
+ 360:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 361:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 362:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 363:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 364:Core/Src/fsm_traffic_system.c ****             
+ 365:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 366:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 367:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 368:Core/Src/fsm_traffic_system.c ****             // chuyen sang MODE3 reset flag de den khong bi blink ngay
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 20
+
+
+ 369:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 370:Core/Src/fsm_traffic_system.c ****         }
+ 371:Core/Src/fsm_traffic_system.c ****         //button chinh gio
+ 372:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 373:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 374:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 375:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);            
+ 376:Core/Src/fsm_traffic_system.c ****         }
+ 377:Core/Src/fsm_traffic_system.c ****         //button save gio
+ 378:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 379:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 380:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE4);
+ 381:Core/Src/fsm_traffic_system.c **** 
+ 382:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 383:Core/Src/fsm_traffic_system.c ****         }
+ 384:Core/Src/fsm_traffic_system.c **** 
+ 385:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 386:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 387:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(YELLOW1_GPIO_Port,YELLOW1_Pin);
+ 388:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(YELLOW2_GPIO_Port,YELLOW2_Pin);
+ 389:Core/Src/fsm_traffic_system.c ****         }
+ 390:Core/Src/fsm_traffic_system.c ****         break;
+ 391:Core/Src/fsm_traffic_system.c ****     default:
+ 392:Core/Src/fsm_traffic_system.c ****         break;
+ 393:Core/Src/fsm_traffic_system.c ****     }
+ 394:Core/Src/fsm_traffic_system.c ****     if (timer4_flag == 1){
+ 661              		.loc 1 394 5 view .LVU124
+ 662              		.loc 1 394 21 is_stmt 0 view .LVU125
+ 663 0048 AD4B     		ldr	r3, .L91+8
+ 664 004a 1B68     		ldr	r3, [r3]
+ 665              		.loc 1 394 8 view .LVU126
+ 666 004c 012B     		cmp	r3, #1
+ 667 004e 00F03D82 		beq	.L70
+ 668              	.L36:
+ 395:Core/Src/fsm_traffic_system.c ****         setTimer4(100);
+ 396:Core/Src/fsm_traffic_system.c ****         scanningLed7SEG();
+ 397:Core/Src/fsm_traffic_system.c ****     }
+ 398:Core/Src/fsm_traffic_system.c **** }...
+ 669              		.loc 1 398 1 view .LVU127
+ 670 0052 38BD     		pop	{r3, r4, r5, pc}
+ 671              	.L45:
+ 129:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(RED1_GREEN2);
+ 672              		.loc 1 129 9 is_stmt 1 view .LVU128
+ 673 0054 0220     		movs	r0, #2
+ 674 0056 FFF7FEFF 		bl	setStateTrafficSystem
+ 675              	.LVL63:
+ 132:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 676              		.loc 1 132 9 view .LVU129
+ 132:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 677              		.loc 1 132 25 is_stmt 0 view .LVU130
+ 678 005a AA4B     		ldr	r3, .L91+12
+ 679 005c 1B68     		ldr	r3, [r3]
+ 132:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 680              		.loc 1 132 12 view .LVU131
+ 681 005e 012B     		cmp	r3, #1
+ 682 0060 1DD0     		beq	.L71
+ 683              	.L47:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 21
+
+
+ 137:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 684              		.loc 1 137 9 is_stmt 1 view .LVU132
+ 137:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 685              		.loc 1 137 25 is_stmt 0 view .LVU133
+ 686 0062 A94B     		ldr	r3, .L91+16
+ 687 0064 1B68     		ldr	r3, [r3]
+ 137:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 688              		.loc 1 137 12 view .LVU134
+ 689 0066 012B     		cmp	r3, #1
+ 690 0068 20D0     		beq	.L72
+ 691              	.L48:
+ 146:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 692              		.loc 1 146 9 is_stmt 1 view .LVU135
+ 146:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 693              		.loc 1 146 13 is_stmt 0 view .LVU136
+ 694 006a 0020     		movs	r0, #0
+ 695 006c FFF7FEFF 		bl	isButtonPress
+ 696              	.LVL64:
+ 146:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 697              		.loc 1 146 12 view .LVU137
+ 698 0070 0128     		cmp	r0, #1
+ 699 0072 E9D1     		bne	.L37
+ 148:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 700              		.loc 1 148 13 is_stmt 1 view .LVU138
+ 701 0074 0221     		movs	r1, #2
+ 702 0076 A548     		ldr	r0, .L91+20
+ 703 0078 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 704              	.LVL65:
+ 150:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 705              		.loc 1 150 13 view .LVU139
+ 150:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 706              		.loc 1 150 19 is_stmt 0 view .LVU140
+ 707 007c 0624     		movs	r4, #6
+ 708 007e 9E4B     		ldr	r3, .L91
+ 709 0080 1C60     		str	r4, [r3]
+ 151:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 710              		.loc 1 151 13 is_stmt 1 view .LVU141
+ 711 0082 0120     		movs	r0, #1
+ 712 0084 FFF7FEFF 		bl	setStateTrafficSystem
+ 713              	.LVL66:
+ 152:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 714              		.loc 1 152 13 view .LVU142
+ 715 0088 42F21070 		movw	r0, #10000
+ 716 008c FFF7FEFF 		bl	setTimer1
+ 717              	.LVL67:
+ 155:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 718              		.loc 1 155 13 view .LVU143
+ 719 0090 2046     		mov	r0, r4
+ 720 0092 FFF7FEFF 		bl	led7SEG4Mode
+ 721              	.LVL68:
+ 156:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 722              		.loc 1 156 13 view .LVU144
+ 723 0096 FA20     		movs	r0, #250
+ 724 0098 FFF7FEFF 		bl	setTimer2
+ 725              	.LVL69:
+ 726 009c D4E7     		b	.L37
+ 727              	.L71:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 22
+
+
+ 133:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 728              		.loc 1 133 13 view .LVU145
+ 729 009e 4FF47A70 		mov	r0, #1000
+ 730 00a2 FFF7FEFF 		bl	setTimer3
+ 731              	.LVL70:
+ 134:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 732              		.loc 1 134 13 view .LVU146
+ 733 00a6 FFF7FEFF 		bl	subsLed7SEG
+ 734              	.LVL71:
+ 735 00aa DAE7     		b	.L47
+ 736              	.L72:
+ 138:Core/Src/fsm_traffic_system.c ****             state = RED1_YELLOW2;
+ 737              		.loc 1 138 13 view .LVU147
+ 138:Core/Src/fsm_traffic_system.c ****             state = RED1_YELLOW2;
+ 738              		.loc 1 138 19 is_stmt 0 view .LVU148
+ 739 00ac 0324     		movs	r4, #3
+ 740 00ae 924B     		ldr	r3, .L91
+ 741 00b0 1C60     		str	r4, [r3]
+ 139:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 742              		.loc 1 139 13 is_stmt 1 view .LVU149
+ 139:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 743              		.loc 1 139 31 is_stmt 0 view .LVU150
+ 744 00b2 924B     		ldr	r3, .L91+4
+ 745 00b4 9868     		ldr	r0, [r3, #8]
+ 139:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 746              		.loc 1 139 13 view .LVU151
+ 747 00b6 4FF47A75 		mov	r5, #1000
+ 748 00ba 05FB00F0 		mul	r0, r5, r0
+ 749 00be FFF7FEFF 		bl	setTimer1
+ 750              	.LVL72:
+ 141:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 751              		.loc 1 141 13 is_stmt 1 view .LVU152
+ 752 00c2 2846     		mov	r0, r5
+ 753 00c4 FFF7FEFF 		bl	setTimer3
+ 754              	.LVL73:
+ 142:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(RED1_YELLOW2);
+ 755              		.loc 1 142 13 view .LVU153
+ 756 00c8 2046     		mov	r0, r4
+ 757 00ca FFF7FEFF 		bl	led7SEG4Mode
+ 758              	.LVL74:
+ 759 00ce CCE7     		b	.L48
+ 760              	.L44:
+ 162:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(RED1_YELLOW2);
+ 761              		.loc 1 162 9 view .LVU154
+ 762 00d0 0320     		movs	r0, #3
+ 763 00d2 FFF7FEFF 		bl	setStateTrafficSystem
+ 764              	.LVL75:
+ 165:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 765              		.loc 1 165 9 view .LVU155
+ 165:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 766              		.loc 1 165 25 is_stmt 0 view .LVU156
+ 767 00d6 8B4B     		ldr	r3, .L91+12
+ 768 00d8 1B68     		ldr	r3, [r3]
+ 165:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 769              		.loc 1 165 12 view .LVU157
+ 770 00da 012B     		cmp	r3, #1
+ 771 00dc 1DD0     		beq	.L73
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 23
+
+
+ 772              	.L49:
+ 171:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 773              		.loc 1 171 9 is_stmt 1 view .LVU158
+ 171:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 774              		.loc 1 171 25 is_stmt 0 view .LVU159
+ 775 00de 8A4B     		ldr	r3, .L91+16
+ 776 00e0 1B68     		ldr	r3, [r3]
+ 171:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 777              		.loc 1 171 12 view .LVU160
+ 778 00e2 012B     		cmp	r3, #1
+ 779 00e4 20D0     		beq	.L74
+ 780              	.L50:
+ 179:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 781              		.loc 1 179 9 is_stmt 1 view .LVU161
+ 179:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 782              		.loc 1 179 13 is_stmt 0 view .LVU162
+ 783 00e6 0020     		movs	r0, #0
+ 784 00e8 FFF7FEFF 		bl	isButtonPress
+ 785              	.LVL76:
+ 179:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 786              		.loc 1 179 12 view .LVU163
+ 787 00ec 0128     		cmp	r0, #1
+ 788 00ee ABD1     		bne	.L37
+ 181:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 789              		.loc 1 181 13 is_stmt 1 view .LVU164
+ 790 00f0 0221     		movs	r1, #2
+ 791 00f2 8648     		ldr	r0, .L91+20
+ 792 00f4 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 793              	.LVL77:
+ 183:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 794              		.loc 1 183 13 view .LVU165
+ 183:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 795              		.loc 1 183 19 is_stmt 0 view .LVU166
+ 796 00f8 0624     		movs	r4, #6
+ 797 00fa 7F4B     		ldr	r3, .L91
+ 798 00fc 1C60     		str	r4, [r3]
+ 184:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 799              		.loc 1 184 13 is_stmt 1 view .LVU167
+ 800 00fe 0120     		movs	r0, #1
+ 801 0100 FFF7FEFF 		bl	setStateTrafficSystem
+ 802              	.LVL78:
+ 185:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 803              		.loc 1 185 13 view .LVU168
+ 804 0104 42F21070 		movw	r0, #10000
+ 805 0108 FFF7FEFF 		bl	setTimer1
+ 806              	.LVL79:
+ 188:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 807              		.loc 1 188 13 view .LVU169
+ 808 010c 2046     		mov	r0, r4
+ 809 010e FFF7FEFF 		bl	led7SEG4Mode
+ 810              	.LVL80:
+ 189:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 811              		.loc 1 189 13 view .LVU170
+ 812 0112 FA20     		movs	r0, #250
+ 813 0114 FFF7FEFF 		bl	setTimer2
+ 814              	.LVL81:
+ 815 0118 96E7     		b	.L37
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 24
+
+
+ 816              	.L73:
+ 166:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 817              		.loc 1 166 13 view .LVU171
+ 818 011a 4FF47A70 		mov	r0, #1000
+ 819 011e FFF7FEFF 		bl	setTimer3
+ 820              	.LVL82:
+ 167:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 821              		.loc 1 167 13 view .LVU172
+ 822 0122 FFF7FEFF 		bl	subsLed7SEG
+ 823              	.LVL83:
+ 824 0126 DAE7     		b	.L49
+ 825              	.L74:
+ 172:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 826              		.loc 1 172 13 view .LVU173
+ 172:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 827              		.loc 1 172 19 is_stmt 0 view .LVU174
+ 828 0128 0424     		movs	r4, #4
+ 829 012a 734B     		ldr	r3, .L91
+ 830 012c 1C60     		str	r4, [r3]
+ 173:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 831              		.loc 1 173 13 is_stmt 1 view .LVU175
+ 173:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 832              		.loc 1 173 31 is_stmt 0 view .LVU176
+ 833 012e 734B     		ldr	r3, .L91+4
+ 834 0130 5868     		ldr	r0, [r3, #4]
+ 173:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 835              		.loc 1 173 13 view .LVU177
+ 836 0132 4FF47A75 		mov	r5, #1000
+ 837 0136 05FB00F0 		mul	r0, r5, r0
+ 838 013a FFF7FEFF 		bl	setTimer1
+ 839              	.LVL84:
+ 175:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 840              		.loc 1 175 13 is_stmt 1 view .LVU178
+ 841 013e 2846     		mov	r0, r5
+ 842 0140 FFF7FEFF 		bl	setTimer3
+ 843              	.LVL85:
+ 176:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 844              		.loc 1 176 13 view .LVU179
+ 845 0144 2046     		mov	r0, r4
+ 846 0146 FFF7FEFF 		bl	led7SEG4Mode
+ 847              	.LVL86:
+ 848 014a CCE7     		b	.L50
+ 849              	.L43:
+ 195:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(GREEN1_RED2);
+ 850              		.loc 1 195 9 view .LVU180
+ 851 014c 0420     		movs	r0, #4
+ 852 014e FFF7FEFF 		bl	setStateTrafficSystem
+ 853              	.LVL87:
+ 198:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 854              		.loc 1 198 9 view .LVU181
+ 198:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 855              		.loc 1 198 25 is_stmt 0 view .LVU182
+ 856 0152 6C4B     		ldr	r3, .L91+12
+ 857 0154 1B68     		ldr	r3, [r3]
+ 198:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 858              		.loc 1 198 12 view .LVU183
+ 859 0156 012B     		cmp	r3, #1
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 25
+
+
+ 860 0158 1ED0     		beq	.L75
+ 861              	.L51:
+ 204:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 862              		.loc 1 204 9 is_stmt 1 view .LVU184
+ 204:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 863              		.loc 1 204 25 is_stmt 0 view .LVU185
+ 864 015a 6B4B     		ldr	r3, .L91+16
+ 865 015c 1B68     		ldr	r3, [r3]
+ 204:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 866              		.loc 1 204 12 view .LVU186
+ 867 015e 012B     		cmp	r3, #1
+ 868 0160 21D0     		beq	.L76
+ 869              	.L52:
+ 213:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 870              		.loc 1 213 9 is_stmt 1 view .LVU187
+ 213:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 871              		.loc 1 213 13 is_stmt 0 view .LVU188
+ 872 0162 0020     		movs	r0, #0
+ 873 0164 FFF7FEFF 		bl	isButtonPress
+ 874              	.LVL88:
+ 213:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 875              		.loc 1 213 12 view .LVU189
+ 876 0168 0128     		cmp	r0, #1
+ 877 016a 7FF46DAF 		bne	.L37
+ 215:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 878              		.loc 1 215 13 is_stmt 1 view .LVU190
+ 879 016e 0221     		movs	r1, #2
+ 880 0170 6648     		ldr	r0, .L91+20
+ 881 0172 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 882              	.LVL89:
+ 217:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 883              		.loc 1 217 13 view .LVU191
+ 217:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 884              		.loc 1 217 19 is_stmt 0 view .LVU192
+ 885 0176 0624     		movs	r4, #6
+ 886 0178 5F4B     		ldr	r3, .L91
+ 887 017a 1C60     		str	r4, [r3]
+ 218:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 888              		.loc 1 218 13 is_stmt 1 view .LVU193
+ 889 017c 0120     		movs	r0, #1
+ 890 017e FFF7FEFF 		bl	setStateTrafficSystem
+ 891              	.LVL90:
+ 219:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 892              		.loc 1 219 13 view .LVU194
+ 893 0182 42F21070 		movw	r0, #10000
+ 894 0186 FFF7FEFF 		bl	setTimer1
+ 895              	.LVL91:
+ 222:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 896              		.loc 1 222 13 view .LVU195
+ 897 018a 2046     		mov	r0, r4
+ 898 018c FFF7FEFF 		bl	led7SEG4Mode
+ 899              	.LVL92:
+ 223:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 900              		.loc 1 223 13 view .LVU196
+ 901 0190 FA20     		movs	r0, #250
+ 902 0192 FFF7FEFF 		bl	setTimer2
+ 903              	.LVL93:
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 26
+
+
+ 904 0196 57E7     		b	.L37
+ 905              	.L75:
+ 199:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 906              		.loc 1 199 13 view .LVU197
+ 907 0198 4FF47A70 		mov	r0, #1000
+ 908 019c FFF7FEFF 		bl	setTimer3
+ 909              	.LVL94:
+ 200:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 910              		.loc 1 200 13 view .LVU198
+ 911 01a0 FFF7FEFF 		bl	subsLed7SEG
+ 912              	.LVL95:
+ 913 01a4 D9E7     		b	.L51
+ 914              	.L76:
+ 205:Core/Src/fsm_traffic_system.c ****             state = YELLOW1_RED2;
+ 915              		.loc 1 205 13 view .LVU199
+ 205:Core/Src/fsm_traffic_system.c ****             state = YELLOW1_RED2;
+ 916              		.loc 1 205 19 is_stmt 0 view .LVU200
+ 917 01a6 0524     		movs	r4, #5
+ 918 01a8 534B     		ldr	r3, .L91
+ 919 01aa 1C60     		str	r4, [r3]
+ 206:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 920              		.loc 1 206 13 is_stmt 1 view .LVU201
+ 206:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 921              		.loc 1 206 31 is_stmt 0 view .LVU202
+ 922 01ac 534B     		ldr	r3, .L91+4
+ 923 01ae 9868     		ldr	r0, [r3, #8]
+ 206:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[2]*1000);
+ 924              		.loc 1 206 13 view .LVU203
+ 925 01b0 4FF47A75 		mov	r5, #1000
+ 926 01b4 05FB00F0 		mul	r0, r5, r0
+ 927 01b8 FFF7FEFF 		bl	setTimer1
+ 928              	.LVL96:
+ 208:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 929              		.loc 1 208 13 is_stmt 1 view .LVU204
+ 930 01bc 2846     		mov	r0, r5
+ 931 01be FFF7FEFF 		bl	setTimer3
+ 932              	.LVL97:
+ 209:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(YELLOW1_RED2);
+ 933              		.loc 1 209 13 view .LVU205
+ 934 01c2 2046     		mov	r0, r4
+ 935 01c4 FFF7FEFF 		bl	led7SEG4Mode
+ 936              	.LVL98:
+ 937 01c8 CBE7     		b	.L52
+ 938              	.L42:
+ 228:Core/Src/fsm_traffic_system.c ****         setStateTrafficSystem(YELLOW1_RED2);
+ 939              		.loc 1 228 9 view .LVU206
+ 940 01ca 0520     		movs	r0, #5
+ 941 01cc FFF7FEFF 		bl	setStateTrafficSystem
+ 942              	.LVL99:
+ 231:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 943              		.loc 1 231 9 view .LVU207
+ 231:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 944              		.loc 1 231 25 is_stmt 0 view .LVU208
+ 945 01d0 4C4B     		ldr	r3, .L91+12
+ 946 01d2 1B68     		ldr	r3, [r3]
+ 231:Core/Src/fsm_traffic_system.c ****         if (timer3_flag == 1){
+ 947              		.loc 1 231 12 view .LVU209
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 27
+
+
+ 948 01d4 012B     		cmp	r3, #1
+ 949 01d6 1ED0     		beq	.L77
+ 950              	.L53:
+ 237:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 951              		.loc 1 237 9 is_stmt 1 view .LVU210
+ 237:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 952              		.loc 1 237 25 is_stmt 0 view .LVU211
+ 953 01d8 4B4B     		ldr	r3, .L91+16
+ 954 01da 1B68     		ldr	r3, [r3]
+ 237:Core/Src/fsm_traffic_system.c ****         if (timer1_flag == 1){
+ 955              		.loc 1 237 12 view .LVU212
+ 956 01dc 012B     		cmp	r3, #1
+ 957 01de 21D0     		beq	.L78
+ 958              	.L54:
+ 245:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 959              		.loc 1 245 9 is_stmt 1 view .LVU213
+ 245:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 960              		.loc 1 245 13 is_stmt 0 view .LVU214
+ 961 01e0 0020     		movs	r0, #0
+ 962 01e2 FFF7FEFF 		bl	isButtonPress
+ 963              	.LVL100:
+ 245:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(0) == 1){
+ 964              		.loc 1 245 12 view .LVU215
+ 965 01e6 0128     		cmp	r0, #1
+ 966 01e8 7FF42EAF 		bne	.L37
+ 247:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 967              		.loc 1 247 13 is_stmt 1 view .LVU216
+ 968 01ec 0221     		movs	r1, #2
+ 969 01ee 4748     		ldr	r0, .L91+20
+ 970 01f0 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 971              	.LVL101:
+ 249:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 972              		.loc 1 249 13 view .LVU217
+ 249:Core/Src/fsm_traffic_system.c ****             state = MODE2;
+ 973              		.loc 1 249 19 is_stmt 0 view .LVU218
+ 974 01f4 0624     		movs	r4, #6
+ 975 01f6 404B     		ldr	r3, .L91
+ 976 01f8 1C60     		str	r4, [r3]
+ 250:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 977              		.loc 1 250 13 is_stmt 1 view .LVU219
+ 978 01fa 0120     		movs	r0, #1
+ 979 01fc FFF7FEFF 		bl	setStateTrafficSystem
+ 980              	.LVL102:
+ 251:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 981              		.loc 1 251 13 view .LVU220
+ 982 0200 42F21070 		movw	r0, #10000
+ 983 0204 FFF7FEFF 		bl	setTimer1
+ 984              	.LVL103:
+ 254:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE2);
+ 985              		.loc 1 254 13 view .LVU221
+ 986 0208 2046     		mov	r0, r4
+ 987 020a FFF7FEFF 		bl	led7SEG4Mode
+ 988              	.LVL104:
+ 255:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 989              		.loc 1 255 13 view .LVU222
+ 990 020e FA20     		movs	r0, #250
+ 991 0210 FFF7FEFF 		bl	setTimer2
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 28
+
+
+ 992              	.LVL105:
+ 993 0214 18E7     		b	.L37
+ 994              	.L77:
+ 232:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 995              		.loc 1 232 13 view .LVU223
+ 996 0216 4FF47A70 		mov	r0, #1000
+ 997 021a FFF7FEFF 		bl	setTimer3
+ 998              	.LVL106:
+ 233:Core/Src/fsm_traffic_system.c ****             subsLed7SEG();
+ 999              		.loc 1 233 13 view .LVU224
+ 1000 021e FFF7FEFF 		bl	subsLed7SEG
+ 1001              	.LVL107:
+ 1002 0222 D9E7     		b	.L53
+ 1003              	.L78:
+ 238:Core/Src/fsm_traffic_system.c ****             state = RED1_GREEN2;
+ 1004              		.loc 1 238 13 view .LVU225
+ 238:Core/Src/fsm_traffic_system.c ****             state = RED1_GREEN2;
+ 1005              		.loc 1 238 19 is_stmt 0 view .LVU226
+ 1006 0224 0224     		movs	r4, #2
+ 1007 0226 344B     		ldr	r3, .L91
+ 1008 0228 1C60     		str	r4, [r3]
+ 239:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1009              		.loc 1 239 13 is_stmt 1 view .LVU227
+ 239:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1010              		.loc 1 239 31 is_stmt 0 view .LVU228
+ 1011 022a 344B     		ldr	r3, .L91+4
+ 1012 022c 5868     		ldr	r0, [r3, #4]
+ 239:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1013              		.loc 1 239 13 view .LVU229
+ 1014 022e 4FF47A75 		mov	r5, #1000
+ 1015 0232 05FB00F0 		mul	r0, r5, r0
+ 1016 0236 FFF7FEFF 		bl	setTimer1
+ 1017              	.LVL108:
+ 241:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 1018              		.loc 1 241 13 is_stmt 1 view .LVU230
+ 1019 023a 2846     		mov	r0, r5
+ 1020 023c FFF7FEFF 		bl	setTimer3
+ 1021              	.LVL109:
+ 242:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(RED1_GREEN2);
+ 1022              		.loc 1 242 13 view .LVU231
+ 1023 0240 2046     		mov	r0, r4
+ 1024 0242 FFF7FEFF 		bl	led7SEG4Mode
+ 1025              	.LVL110:
+ 1026 0246 CBE7     		b	.L54
+ 1027              	.L41:
+ 260:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1028              		.loc 1 260 9 view .LVU232
+ 260:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1029              		.loc 1 260 24 is_stmt 0 view .LVU233
+ 1030 0248 2F4B     		ldr	r3, .L91+16
+ 1031 024a 1B68     		ldr	r3, [r3]
+ 260:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1032              		.loc 1 260 11 view .LVU234
+ 1033 024c 012B     		cmp	r3, #1
+ 1034 024e 1FD0     		beq	.L79
+ 1035              	.L55:
+ 273:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 29
+
+
+ 1036              		.loc 1 273 9 is_stmt 1 view .LVU235
+ 273:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1037              		.loc 1 273 12 is_stmt 0 view .LVU236
+ 1038 0250 0020     		movs	r0, #0
+ 1039 0252 FFF7FEFF 		bl	isButtonPress
+ 1040              	.LVL111:
+ 273:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1041              		.loc 1 273 11 view .LVU237
+ 1042 0256 0128     		cmp	r0, #1
+ 1043 0258 2ED0     		beq	.L80
+ 1044              	.L56:
+ 284:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1){
+ 1045              		.loc 1 284 9 is_stmt 1 view .LVU238
+ 284:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1){
+ 1046              		.loc 1 284 13 is_stmt 0 view .LVU239
+ 1047 025a 0120     		movs	r0, #1
+ 1048 025c FFF7FEFF 		bl	isButtonPress
+ 1049              	.LVL112:
+ 284:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1){
+ 1050              		.loc 1 284 12 view .LVU240
+ 1051 0260 0128     		cmp	r0, #1
+ 1052 0262 3ED0     		beq	.L81
+ 1053              	.L57:
+ 290:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1054              		.loc 1 290 9 is_stmt 1 view .LVU241
+ 290:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1055              		.loc 1 290 13 is_stmt 0 view .LVU242
+ 1056 0264 0220     		movs	r0, #2
+ 1057 0266 FFF7FEFF 		bl	isButtonPress
+ 1058              	.LVL113:
+ 290:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1059              		.loc 1 290 12 view .LVU243
+ 1060 026a 0128     		cmp	r0, #1
+ 1061 026c 54D0     		beq	.L82
+ 1062              	.L58:
+ 297:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1063              		.loc 1 297 9 is_stmt 1 view .LVU244
+ 297:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1064              		.loc 1 297 24 is_stmt 0 view .LVU245
+ 1065 026e 284B     		ldr	r3, .L91+24
+ 1066 0270 1B68     		ldr	r3, [r3]
+ 297:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1067              		.loc 1 297 11 view .LVU246
+ 1068 0272 012B     		cmp	r3, #1
+ 1069 0274 7FF4E8AE 		bne	.L37
+ 298:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1070              		.loc 1 298 13 is_stmt 1 view .LVU247
+ 1071 0278 FA20     		movs	r0, #250
+ 1072 027a FFF7FEFF 		bl	setTimer2
+ 1073              	.LVL114:
+ 299:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(RED1_GPIO_Port,RED1_Pin);
+ 1074              		.loc 1 299 13 view .LVU248
+ 1075 027e 2021     		movs	r1, #32
+ 1076 0280 2248     		ldr	r0, .L91+20
+ 1077 0282 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1078              	.LVL115:
+ 300:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(RED2_GPIO_Port,RED2_Pin);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 30
+
+
+ 1079              		.loc 1 300 13 view .LVU249
+ 1080 0286 0121     		movs	r1, #1
+ 1081 0288 2248     		ldr	r0, .L91+28
+ 1082 028a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1083              	.LVL116:
+ 1084 028e DBE6     		b	.L37
+ 1085              	.L79:
+ 261:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1086              		.loc 1 261 13 view .LVU250
+ 261:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1087              		.loc 1 261 19 is_stmt 0 view .LVU251
+ 1088 0290 0424     		movs	r4, #4
+ 1089 0292 194B     		ldr	r3, .L91
+ 1090 0294 1C60     		str	r4, [r3]
+ 263:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 1091              		.loc 1 263 13 is_stmt 1 view .LVU252
+ 1092 0296 FFF7FEFF 		bl	checkSetTimeValid
+ 1093              	.LVL117:
+ 264:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1094              		.loc 1 264 13 view .LVU253
+ 264:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1095              		.loc 1 264 31 is_stmt 0 view .LVU254
+ 1096 029a 184B     		ldr	r3, .L91+4
+ 1097 029c 5868     		ldr	r0, [r3, #4]
+ 264:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1098              		.loc 1 264 13 view .LVU255
+ 1099 029e 4FF47A75 		mov	r5, #1000
+ 1100 02a2 05FB00F0 		mul	r0, r5, r0
+ 1101 02a6 FFF7FEFF 		bl	setTimer1
+ 1102              	.LVL118:
+ 267:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 1103              		.loc 1 267 13 is_stmt 1 view .LVU256
+ 1104 02aa 2846     		mov	r0, r5
+ 1105 02ac FFF7FEFF 		bl	setTimer3
+ 1106              	.LVL119:
+ 268:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 1107              		.loc 1 268 13 view .LVU257
+ 1108 02b0 2046     		mov	r0, r4
+ 1109 02b2 FFF7FEFF 		bl	led7SEG4Mode
+ 1110              	.LVL120:
+ 1111 02b6 CBE7     		b	.L55
+ 1112              	.L80:
+ 274:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1113              		.loc 1 274 13 view .LVU258
+ 1114 02b8 0221     		movs	r1, #2
+ 1115 02ba 1448     		ldr	r0, .L91+20
+ 1116 02bc FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1117              	.LVL121:
+ 275:Core/Src/fsm_traffic_system.c ****             state = MODE3;
+ 1118              		.loc 1 275 13 view .LVU259
+ 275:Core/Src/fsm_traffic_system.c ****             state = MODE3;
+ 1119              		.loc 1 275 19 is_stmt 0 view .LVU260
+ 1120 02c0 0724     		movs	r4, #7
+ 1121 02c2 0D4B     		ldr	r3, .L91
+ 1122 02c4 1C60     		str	r4, [r3]
+ 276:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1123              		.loc 1 276 13 is_stmt 1 view .LVU261
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 31
+
+
+ 1124 02c6 42F21070 		movw	r0, #10000
+ 1125 02ca FFF7FEFF 		bl	setTimer1
+ 1126              	.LVL122:
+ 277:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 1127              		.loc 1 277 13 view .LVU262
+ 1128 02ce 0120     		movs	r0, #1
+ 1129 02d0 FFF7FEFF 		bl	setStateTrafficSystem
+ 1130              	.LVL123:
+ 278:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE3);
+ 1131              		.loc 1 278 13 view .LVU263
+ 1132 02d4 2046     		mov	r0, r4
+ 1133 02d6 FFF7FEFF 		bl	led7SEG4Mode
+ 1134              	.LVL124:
+ 281:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1135              		.loc 1 281 13 view .LVU264
+ 1136 02da FA20     		movs	r0, #250
+ 1137 02dc FFF7FEFF 		bl	setTimer2
+ 1138              	.LVL125:
+ 1139 02e0 BBE7     		b	.L56
+ 1140              	.L81:
+ 285:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1141              		.loc 1 285 13 view .LVU265
+ 1142 02e2 0221     		movs	r1, #2
+ 1143 02e4 0948     		ldr	r0, .L91+20
+ 1144 02e6 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1145              	.LVL126:
+ 286:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 1146              		.loc 1 286 13 view .LVU266
+ 1147 02ea FFF7FEFF 		bl	plusLed7SEG
+ 1148              	.LVL127:
+ 287:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1149              		.loc 1 287 13 view .LVU267
+ 1150 02ee 42F21070 		movw	r0, #10000
+ 1151 02f2 FFF7FEFF 		bl	setTimer1
+ 1152              	.LVL128:
+ 1153 02f6 B5E7     		b	.L57
+ 1154              	.L92:
+ 1155              		.align	2
+ 1156              	.L91:
+ 1157 02f8 00000000 		.word	state
+ 1158 02fc 00000000 		.word	timeRoad
+ 1159 0300 00000000 		.word	timer4_flag
+ 1160 0304 00000000 		.word	timer3_flag
+ 1161 0308 00000000 		.word	timer1_flag
+ 1162 030c 00080140 		.word	1073809408
+ 1163 0310 00000000 		.word	timer2_flag
+ 1164 0314 000C0140 		.word	1073810432
+ 1165              	.L82:
+ 291:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1166              		.loc 1 291 13 view .LVU268
+ 1167 0318 0221     		movs	r1, #2
+ 1168 031a 6F48     		ldr	r0, .L93
+ 1169 031c FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1170              	.LVL129:
+ 292:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE2);
+ 1171              		.loc 1 292 13 view .LVU269
+ 1172 0320 0620     		movs	r0, #6
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 32
+
+
+ 1173 0322 FFF7FEFF 		bl	updateTimeRoad
+ 1174              	.LVL130:
+ 294:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1175              		.loc 1 294 13 view .LVU270
+ 1176 0326 42F21070 		movw	r0, #10000
+ 1177 032a FFF7FEFF 		bl	setTimer1
+ 1178              	.LVL131:
+ 1179 032e 9EE7     		b	.L58
+ 1180              	.L40:
+ 305:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1181              		.loc 1 305 9 view .LVU271
+ 305:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1182              		.loc 1 305 24 is_stmt 0 view .LVU272
+ 1183 0330 6A4B     		ldr	r3, .L93+4
+ 1184 0332 1B68     		ldr	r3, [r3]
+ 305:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1185              		.loc 1 305 11 view .LVU273
+ 1186 0334 012B     		cmp	r3, #1
+ 1187 0336 1FD0     		beq	.L83
+ 1188              	.L59:
+ 317:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1189              		.loc 1 317 9 is_stmt 1 view .LVU274
+ 317:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1190              		.loc 1 317 12 is_stmt 0 view .LVU275
+ 1191 0338 0020     		movs	r0, #0
+ 1192 033a FFF7FEFF 		bl	isButtonPress
+ 1193              	.LVL132:
+ 317:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1194              		.loc 1 317 11 view .LVU276
+ 1195 033e 0128     		cmp	r0, #1
+ 1196 0340 2ED0     		beq	.L84
+ 1197              	.L60:
+ 328:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1198              		.loc 1 328 9 is_stmt 1 view .LVU277
+ 328:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1199              		.loc 1 328 13 is_stmt 0 view .LVU278
+ 1200 0342 0120     		movs	r0, #1
+ 1201 0344 FFF7FEFF 		bl	isButtonPress
+ 1202              	.LVL133:
+ 328:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1203              		.loc 1 328 12 view .LVU279
+ 1204 0348 0128     		cmp	r0, #1
+ 1205 034a 3ED0     		beq	.L85
+ 1206              	.L61:
+ 334:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1207              		.loc 1 334 9 is_stmt 1 view .LVU280
+ 334:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1208              		.loc 1 334 13 is_stmt 0 view .LVU281
+ 1209 034c 0220     		movs	r0, #2
+ 1210 034e FFF7FEFF 		bl	isButtonPress
+ 1211              	.LVL134:
+ 334:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1212              		.loc 1 334 12 view .LVU282
+ 1213 0352 0128     		cmp	r0, #1
+ 1214 0354 44D0     		beq	.L86
+ 1215              	.L62:
+ 341:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 33
+
+
+ 1216              		.loc 1 341 9 is_stmt 1 view .LVU283
+ 341:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1217              		.loc 1 341 24 is_stmt 0 view .LVU284
+ 1218 0356 624B     		ldr	r3, .L93+8
+ 1219 0358 1B68     		ldr	r3, [r3]
+ 341:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1220              		.loc 1 341 11 view .LVU285
+ 1221 035a 012B     		cmp	r3, #1
+ 1222 035c 7FF474AE 		bne	.L37
+ 342:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1223              		.loc 1 342 13 is_stmt 1 view .LVU286
+ 1224 0360 FA20     		movs	r0, #250
+ 1225 0362 FFF7FEFF 		bl	setTimer2
+ 1226              	.LVL135:
+ 343:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(GREEN1_GPIO_Port,GREEN1_Pin);
+ 1227              		.loc 1 343 13 view .LVU287
+ 1228 0366 4021     		movs	r1, #64
+ 1229 0368 5B48     		ldr	r0, .L93
+ 1230 036a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1231              	.LVL136:
+ 344:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(GREEN2_GPIO_Port,GREEN2_Pin);
+ 1232              		.loc 1 344 13 view .LVU288
+ 1233 036e 0221     		movs	r1, #2
+ 1234 0370 5C48     		ldr	r0, .L93+12
+ 1235 0372 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1236              	.LVL137:
+ 1237 0376 67E6     		b	.L37
+ 1238              	.L83:
+ 306:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1239              		.loc 1 306 13 view .LVU289
+ 306:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1240              		.loc 1 306 19 is_stmt 0 view .LVU290
+ 1241 0378 0424     		movs	r4, #4
+ 1242 037a 5B4B     		ldr	r3, .L93+16
+ 1243 037c 1C60     		str	r4, [r3]
+ 307:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 1244              		.loc 1 307 13 is_stmt 1 view .LVU291
+ 1245 037e FFF7FEFF 		bl	checkSetTimeValid
+ 1246              	.LVL138:
+ 308:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1247              		.loc 1 308 13 view .LVU292
+ 308:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1248              		.loc 1 308 31 is_stmt 0 view .LVU293
+ 1249 0382 5A4B     		ldr	r3, .L93+20
+ 1250 0384 5868     		ldr	r0, [r3, #4]
+ 308:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1251              		.loc 1 308 13 view .LVU294
+ 1252 0386 4FF47A75 		mov	r5, #1000
+ 1253 038a 05FB00F0 		mul	r0, r5, r0
+ 1254 038e FFF7FEFF 		bl	setTimer1
+ 1255              	.LVL139:
+ 311:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 1256              		.loc 1 311 13 is_stmt 1 view .LVU295
+ 1257 0392 2846     		mov	r0, r5
+ 1258 0394 FFF7FEFF 		bl	setTimer3
+ 1259              	.LVL140:
+ 312:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 34
+
+
+ 1260              		.loc 1 312 13 view .LVU296
+ 1261 0398 2046     		mov	r0, r4
+ 1262 039a FFF7FEFF 		bl	led7SEG4Mode
+ 1263              	.LVL141:
+ 1264 039e CBE7     		b	.L59
+ 1265              	.L84:
+ 318:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1266              		.loc 1 318 13 view .LVU297
+ 1267 03a0 0221     		movs	r1, #2
+ 1268 03a2 4D48     		ldr	r0, .L93
+ 1269 03a4 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1270              	.LVL142:
+ 319:Core/Src/fsm_traffic_system.c ****             state = MODE4;
+ 1271              		.loc 1 319 13 view .LVU298
+ 319:Core/Src/fsm_traffic_system.c ****             state = MODE4;
+ 1272              		.loc 1 319 19 is_stmt 0 view .LVU299
+ 1273 03a8 0824     		movs	r4, #8
+ 1274 03aa 4F4B     		ldr	r3, .L93+16
+ 1275 03ac 1C60     		str	r4, [r3]
+ 320:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1276              		.loc 1 320 13 is_stmt 1 view .LVU300
+ 1277 03ae 42F21070 		movw	r0, #10000
+ 1278 03b2 FFF7FEFF 		bl	setTimer1
+ 1279              	.LVL143:
+ 321:Core/Src/fsm_traffic_system.c ****             setStateTrafficSystem(INIT);
+ 1280              		.loc 1 321 13 view .LVU301
+ 1281 03b6 0120     		movs	r0, #1
+ 1282 03b8 FFF7FEFF 		bl	setStateTrafficSystem
+ 1283              	.LVL144:
+ 322:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(MODE4);
+ 1284              		.loc 1 322 13 view .LVU302
+ 1285 03bc 2046     		mov	r0, r4
+ 1286 03be FFF7FEFF 		bl	led7SEG4Mode
+ 1287              	.LVL145:
+ 325:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1288              		.loc 1 325 13 view .LVU303
+ 1289 03c2 FA20     		movs	r0, #250
+ 1290 03c4 FFF7FEFF 		bl	setTimer2
+ 1291              	.LVL146:
+ 1292 03c8 BBE7     		b	.L60
+ 1293              	.L85:
+ 329:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1294              		.loc 1 329 13 view .LVU304
+ 1295 03ca 0221     		movs	r1, #2
+ 1296 03cc 4248     		ldr	r0, .L93
+ 1297 03ce FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1298              	.LVL147:
+ 330:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 1299              		.loc 1 330 13 view .LVU305
+ 1300 03d2 FFF7FEFF 		bl	plusLed7SEG
+ 1301              	.LVL148:
+ 331:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1302              		.loc 1 331 13 view .LVU306
+ 1303 03d6 42F21070 		movw	r0, #10000
+ 1304 03da FFF7FEFF 		bl	setTimer1
+ 1305              	.LVL149:
+ 1306 03de B5E7     		b	.L61
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 35
+
+
+ 1307              	.L86:
+ 335:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1308              		.loc 1 335 13 view .LVU307
+ 1309 03e0 0221     		movs	r1, #2
+ 1310 03e2 3D48     		ldr	r0, .L93
+ 1311 03e4 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1312              	.LVL150:
+ 336:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE3);
+ 1313              		.loc 1 336 13 view .LVU308
+ 1314 03e8 0720     		movs	r0, #7
+ 1315 03ea FFF7FEFF 		bl	updateTimeRoad
+ 1316              	.LVL151:
+ 338:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1317              		.loc 1 338 13 view .LVU309
+ 1318 03ee 42F21070 		movw	r0, #10000
+ 1319 03f2 FFF7FEFF 		bl	setTimer1
+ 1320              	.LVL152:
+ 1321 03f6 AEE7     		b	.L62
+ 1322              	.L38:
+ 349:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1323              		.loc 1 349 9 view .LVU310
+ 349:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1324              		.loc 1 349 24 is_stmt 0 view .LVU311
+ 1325 03f8 384B     		ldr	r3, .L93+4
+ 1326 03fa 1B68     		ldr	r3, [r3]
+ 349:Core/Src/fsm_traffic_system.c ****         if(timer1_flag == 1){
+ 1327              		.loc 1 349 11 view .LVU312
+ 1328 03fc 012B     		cmp	r3, #1
+ 1329 03fe 1FD0     		beq	.L87
+ 1330              	.L63:
+ 360:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1331              		.loc 1 360 9 is_stmt 1 view .LVU313
+ 360:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1332              		.loc 1 360 12 is_stmt 0 view .LVU314
+ 1333 0400 0020     		movs	r0, #0
+ 1334 0402 FFF7FEFF 		bl	isButtonPress
+ 1335              	.LVL153:
+ 360:Core/Src/fsm_traffic_system.c ****         if(isButtonPress(0) == 1){
+ 1336              		.loc 1 360 11 view .LVU315
+ 1337 0406 0128     		cmp	r0, #1
+ 1338 0408 2ED0     		beq	.L88
+ 1339              	.L64:
+ 372:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1340              		.loc 1 372 9 is_stmt 1 view .LVU316
+ 372:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1341              		.loc 1 372 13 is_stmt 0 view .LVU317
+ 1342 040a 0120     		movs	r0, #1
+ 1343 040c FFF7FEFF 		bl	isButtonPress
+ 1344              	.LVL154:
+ 372:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(1) == 1 ){
+ 1345              		.loc 1 372 12 view .LVU318
+ 1346 0410 0128     		cmp	r0, #1
+ 1347 0412 44D0     		beq	.L89
+ 1348              	.L65:
+ 378:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1349              		.loc 1 378 9 is_stmt 1 view .LVU319
+ 378:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 36
+
+
+ 1350              		.loc 1 378 13 is_stmt 0 view .LVU320
+ 1351 0414 0220     		movs	r0, #2
+ 1352 0416 FFF7FEFF 		bl	isButtonPress
+ 1353              	.LVL155:
+ 378:Core/Src/fsm_traffic_system.c ****         if (isButtonPress(2) == 1){
+ 1354              		.loc 1 378 12 view .LVU321
+ 1355 041a 0128     		cmp	r0, #1
+ 1356 041c 4AD0     		beq	.L90
+ 1357              	.L66:
+ 385:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1358              		.loc 1 385 9 is_stmt 1 view .LVU322
+ 385:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1359              		.loc 1 385 24 is_stmt 0 view .LVU323
+ 1360 041e 304B     		ldr	r3, .L93+8
+ 1361 0420 1B68     		ldr	r3, [r3]
+ 385:Core/Src/fsm_traffic_system.c ****         if(timer2_flag == 1){
+ 1362              		.loc 1 385 11 view .LVU324
+ 1363 0422 012B     		cmp	r3, #1
+ 1364 0424 7FF410AE 		bne	.L37
+ 386:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1365              		.loc 1 386 13 is_stmt 1 view .LVU325
+ 1366 0428 FA20     		movs	r0, #250
+ 1367 042a FFF7FEFF 		bl	setTimer2
+ 1368              	.LVL156:
+ 387:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(YELLOW1_GPIO_Port,YELLOW1_Pin);
+ 1369              		.loc 1 387 13 view .LVU326
+ 1370 042e 8021     		movs	r1, #128
+ 1371 0430 2948     		ldr	r0, .L93
+ 1372 0432 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1373              	.LVL157:
+ 388:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(YELLOW2_GPIO_Port,YELLOW2_Pin);
+ 1374              		.loc 1 388 13 view .LVU327
+ 1375 0436 0421     		movs	r1, #4
+ 1376 0438 2A48     		ldr	r0, .L93+12
+ 1377 043a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1378              	.LVL158:
+ 1379 043e 03E6     		b	.L37
+ 1380              	.L87:
+ 350:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1381              		.loc 1 350 13 view .LVU328
+ 350:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1382              		.loc 1 350 19 is_stmt 0 view .LVU329
+ 1383 0440 0424     		movs	r4, #4
+ 1384 0442 294B     		ldr	r3, .L93+16
+ 1385 0444 1C60     		str	r4, [r3]
+ 351:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 1386              		.loc 1 351 13 is_stmt 1 view .LVU330
+ 1387 0446 FFF7FEFF 		bl	checkSetTimeValid
+ 1388              	.LVL159:
+ 352:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1389              		.loc 1 352 13 view .LVU331
+ 352:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1390              		.loc 1 352 31 is_stmt 0 view .LVU332
+ 1391 044a 284B     		ldr	r3, .L93+20
+ 1392 044c 5868     		ldr	r0, [r3, #4]
+ 352:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1393              		.loc 1 352 13 view .LVU333
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 37
+
+
+ 1394 044e 4FF47A75 		mov	r5, #1000
+ 1395 0452 05FB00F0 		mul	r0, r5, r0
+ 1396 0456 FFF7FEFF 		bl	setTimer1
+ 1397              	.LVL160:
+ 355:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 1398              		.loc 1 355 13 is_stmt 1 view .LVU334
+ 1399 045a 2846     		mov	r0, r5
+ 1400 045c FFF7FEFF 		bl	setTimer3
+ 1401              	.LVL161:
+ 356:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 1402              		.loc 1 356 13 view .LVU335
+ 1403 0460 2046     		mov	r0, r4
+ 1404 0462 FFF7FEFF 		bl	led7SEG4Mode
+ 1405              	.LVL162:
+ 1406 0466 CBE7     		b	.L63
+ 1407              	.L88:
+ 361:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1408              		.loc 1 361 13 view .LVU336
+ 1409 0468 0221     		movs	r1, #2
+ 1410 046a 1B48     		ldr	r0, .L93
+ 1411 046c FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1412              	.LVL163:
+ 362:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1413              		.loc 1 362 13 view .LVU337
+ 362:Core/Src/fsm_traffic_system.c ****             state = GREEN1_RED2;
+ 1414              		.loc 1 362 19 is_stmt 0 view .LVU338
+ 1415 0470 0424     		movs	r4, #4
+ 1416 0472 1D4B     		ldr	r3, .L93+16
+ 1417 0474 1C60     		str	r4, [r3]
+ 363:Core/Src/fsm_traffic_system.c ****             checkSetTimeValid();
+ 1418              		.loc 1 363 13 is_stmt 1 view .LVU339
+ 1419 0476 FFF7FEFF 		bl	checkSetTimeValid
+ 1420              	.LVL164:
+ 365:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1421              		.loc 1 365 13 view .LVU340
+ 365:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1422              		.loc 1 365 31 is_stmt 0 view .LVU341
+ 1423 047a 1C4B     		ldr	r3, .L93+20
+ 1424 047c 5868     		ldr	r0, [r3, #4]
+ 365:Core/Src/fsm_traffic_system.c ****             setTimer1(timeRoad[1]*1000);
+ 1425              		.loc 1 365 13 view .LVU342
+ 1426 047e 4FF47A75 		mov	r5, #1000
+ 1427 0482 05FB00F0 		mul	r0, r5, r0
+ 1428 0486 FFF7FEFF 		bl	setTimer1
+ 1429              	.LVL165:
+ 366:Core/Src/fsm_traffic_system.c ****             setTimer3(1000);
+ 1430              		.loc 1 366 13 is_stmt 1 view .LVU343
+ 1431 048a 2846     		mov	r0, r5
+ 1432 048c FFF7FEFF 		bl	setTimer3
+ 1433              	.LVL166:
+ 367:Core/Src/fsm_traffic_system.c ****             led7SEG4Mode(GREEN1_RED2);
+ 1434              		.loc 1 367 13 view .LVU344
+ 1435 0490 2046     		mov	r0, r4
+ 1436 0492 FFF7FEFF 		bl	led7SEG4Mode
+ 1437              	.LVL167:
+ 369:Core/Src/fsm_traffic_system.c ****             setTimer2(250);
+ 1438              		.loc 1 369 13 view .LVU345
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 38
+
+
+ 1439 0496 FA20     		movs	r0, #250
+ 1440 0498 FFF7FEFF 		bl	setTimer2
+ 1441              	.LVL168:
+ 1442 049c B5E7     		b	.L64
+ 1443              	.L89:
+ 373:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1444              		.loc 1 373 13 view .LVU346
+ 1445 049e 0221     		movs	r1, #2
+ 1446 04a0 0D48     		ldr	r0, .L93
+ 1447 04a2 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1448              	.LVL169:
+ 374:Core/Src/fsm_traffic_system.c ****             plusLed7SEG();
+ 1449              		.loc 1 374 13 view .LVU347
+ 1450 04a6 FFF7FEFF 		bl	plusLed7SEG
+ 1451              	.LVL170:
+ 375:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);            
+ 1452              		.loc 1 375 13 view .LVU348
+ 1453 04aa 42F21070 		movw	r0, #10000
+ 1454 04ae FFF7FEFF 		bl	setTimer1
+ 1455              	.LVL171:
+ 1456 04b2 AFE7     		b	.L65
+ 1457              	.L90:
+ 379:Core/Src/fsm_traffic_system.c ****             HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+ 1458              		.loc 1 379 13 view .LVU349
+ 1459 04b4 0221     		movs	r1, #2
+ 1460 04b6 0848     		ldr	r0, .L93
+ 1461 04b8 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 1462              	.LVL172:
+ 380:Core/Src/fsm_traffic_system.c ****             updateTimeRoad(MODE4);
+ 1463              		.loc 1 380 13 view .LVU350
+ 1464 04bc 0820     		movs	r0, #8
+ 1465 04be FFF7FEFF 		bl	updateTimeRoad
+ 1466              	.LVL173:
+ 382:Core/Src/fsm_traffic_system.c ****             setTimer1(10000);
+ 1467              		.loc 1 382 13 view .LVU351
+ 1468 04c2 42F21070 		movw	r0, #10000
+ 1469 04c6 FFF7FEFF 		bl	setTimer1
+ 1470              	.LVL174:
+ 1471 04ca A8E7     		b	.L66
+ 1472              	.L70:
+ 395:Core/Src/fsm_traffic_system.c ****         setTimer4(100);
+ 1473              		.loc 1 395 9 view .LVU352
+ 1474 04cc 6420     		movs	r0, #100
+ 1475 04ce FFF7FEFF 		bl	setTimer4
+ 1476              	.LVL175:
+ 396:Core/Src/fsm_traffic_system.c ****         scanningLed7SEG();
+ 1477              		.loc 1 396 9 view .LVU353
+ 1478 04d2 FFF7FEFF 		bl	scanningLed7SEG
+ 1479              	.LVL176:
+ 1480              		.loc 1 398 1 is_stmt 0 view .LVU354
+ 1481 04d6 BCE5     		b	.L36
+ 1482              	.L94:
+ 1483              		.align	2
+ 1484              	.L93:
+ 1485 04d8 00080140 		.word	1073809408
+ 1486 04dc 00000000 		.word	timer1_flag
+ 1487 04e0 00000000 		.word	timer2_flag
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 39
+
+
+ 1488 04e4 000C0140 		.word	1073810432
+ 1489 04e8 00000000 		.word	state
+ 1490 04ec 00000000 		.word	timeRoad
+ 1491              		.cfi_endproc
+ 1492              	.LFE69:
+ 1494              		.global	state
+ 1495              		.section	.data.state,"aw"
+ 1496              		.align	2
+ 1499              	state:
+ 1500 0000 01000000 		.word	1
+ 1501              		.global	setTimeRoad
+ 1502              		.section	.bss.setTimeRoad,"aw",%nobits
+ 1503              		.align	2
+ 1506              	setTimeRoad:
+ 1507 0000 00000000 		.space	12
+ 1507      00000000 
+ 1507      00000000 
+ 1508              		.global	timeRoad
+ 1509              		.section	.data.timeRoad,"aw"
+ 1510              		.align	2
+ 1513              	timeRoad:
+ 1514 0000 05000000 		.word	5
+ 1515 0004 03000000 		.word	3
+ 1516 0008 02000000 		.word	2
+ 1517              		.global	led7SEGbuffer
+ 1518              		.section	.bss.led7SEGbuffer,"aw",%nobits
+ 1519              		.align	2
+ 1522              	led7SEGbuffer:
+ 1523 0000 00000000 		.space	16
+ 1523      00000000 
+ 1523      00000000 
+ 1523      00000000 
+ 1524              		.text
+ 1525              	.Letext0:
+ 1526              		.file 2 "c:\\program files (x86)\\arm gnu toolchain arm-none-eabi\\12.3 rel1\\arm-none-eabi\\inclu
+ 1527              		.file 3 "c:\\program files (x86)\\arm gnu toolchain arm-none-eabi\\12.3 rel1\\arm-none-eabi\\inclu
+ 1528              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 1529              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 1530              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1531              		.file 7 "Core/Inc/software_timer.h"
+ 1532              		.file 8 "Core/Inc/fsm_traffic_system.h"
+ 1533              		.file 9 "Core/Inc/output.h"
+ 1534              		.file 10 "Core/Inc/button.h"
+ARM GAS  C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s 			page 40
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 fsm_traffic_system.c
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:19     .text.plusLed7SEG:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:25     .text.plusLed7SEG:00000000 plusLed7SEG
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:77     .text.plusLed7SEG:00000034 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1522   .bss.led7SEGbuffer:00000000 led7SEGbuffer
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:83     .text.checkSetTimeValid:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:89     .text.checkSetTimeValid:00000000 checkSetTimeValid
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:138    .text.checkSetTimeValid:00000028 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1506   .bss.setTimeRoad:00000000 setTimeRoad
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1513   .data.timeRoad:00000000 timeRoad
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:145    .text.updateTimeRoad:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:151    .text.updateTimeRoad:00000000 updateTimeRoad
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:205    .text.updateTimeRoad:00000030 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:211    .text.setStateTrafficSystem:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:217    .text.setStateTrafficSystem:00000000 setStateTrafficSystem
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:238    .text.setStateTrafficSystem:0000000c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:254    .text.setStateTrafficSystem:0000001c $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:591    .text.setStateTrafficSystem:0000023c $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:596    .text.fsmTrafficSystemRun:00000000 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:602    .text.fsmTrafficSystemRun:00000000 fsmTrafficSystemRun
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:623    .text.fsmTrafficSystemRun:00000010 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:631    .text.fsmTrafficSystemRun:00000020 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1157   .text.fsmTrafficSystemRun:000002f8 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1499   .data.state:00000000 state
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1167   .text.fsmTrafficSystemRun:00000318 $t
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1485   .text.fsmTrafficSystemRun:000004d8 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1496   .data.state:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1503   .bss.setTimeRoad:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1510   .data.timeRoad:00000000 $d
+C:\Users\ADMIN\AppData\Local\Temp\ccG0KuCq.s:1519   .bss.led7SEGbuffer:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+setTimer1
+setTimer3
+led7SEG4Mode
+isButtonPress
+HAL_GPIO_TogglePin
+setTimer2
+subsLed7SEG
+timer4_flag
+timer3_flag
+timer1_flag
+timer2_flag
+setTimer4
+scanningLed7SEG
